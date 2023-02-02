@@ -7,6 +7,7 @@ public class playerController : MonoBehaviour
 {
     private Rigidbody myRB;
     private CapsuleCollider myCC;
+    private PlayerInput myPI;
     private Vector3 moveVector = new Vector3(0,0,0);
 
     private RaycastHit groundRay;
@@ -23,6 +24,7 @@ public class playerController : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody>();
         myCC = GetComponent<CapsuleCollider>();
+        myPI = GetComponent<PlayerInput>();
     }
 
     void OnMove(InputValue value)
@@ -41,7 +43,15 @@ public class playerController : MonoBehaviour
         {
             if (interactRay.collider.CompareTag("Interactable"))
             {
-
+                transform.parent = interactRay.collider.transform.parent;
+                myPI.enabled = false;
+                myRB.isKinematic = true;
+                var change = interactRay.collider.transform.parent.gameObject.GetComponent<PlayerInput>();
+                change.enabled = true;
+                if (change.GetComponent<transport>())
+                {
+                    change.GetComponent<transport>().myPlayer = gameObject;
+                }
             }
         }
     }
@@ -55,7 +65,7 @@ public class playerController : MonoBehaviour
             jumpCooldown = -1;
         }
 
-        if (jumps > 0 && jumpCooldown < 0)
+        if (jump > 0 && jumpCooldown < 0 && jumps > 0)
         {
             jumps--;
             jumpCooldown = 1;
@@ -63,5 +73,24 @@ public class playerController : MonoBehaviour
         }
 
         jumpCooldown -= Time.deltaTime;
+        if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
+        {
+            if (interactRay.collider.CompareTag("Interactable") && interactRay.collider.transform.parent.gameObject.GetComponent<transport>())
+            {
+                interactRay.collider.transform.parent.gameObject.GetComponent<transport>().interactText.gameObject.SetActive(true);
+                interactRay.collider.transform.parent.gameObject.GetComponent<transport>().textTimer = 1;
+            }
+            if (interactRay.collider.CompareTag("Ladder"))
+            {
+                myRB.useGravity = false;
+                transform.position += transform.up * moveVector.y * Time.deltaTime * moveSpeed;
+                myRB.velocity = Vector3.zero;
+            }
+
+        }
+        else
+        {
+            myRB.useGravity = true;
+        }
     }
 }
