@@ -37,7 +37,7 @@ public class cannon : MonoBehaviour
         aim = value.Get<Vector2>();
         bim = new Vector3(Display.main.renderingWidth / 2, Display.main.renderingHeight / 2, 0);
         aim -= bim;
-        aim = aim / 180;
+        aim = aim / 240;
         cannonObj.transform.LookAt(aim + transform.position, Vector3.up);
     }
 
