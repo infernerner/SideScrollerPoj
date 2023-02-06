@@ -7,7 +7,7 @@ public class cameraController : MonoBehaviour
 {
     public Vector3 offset;
     public GameObject myPlayer;
-    private Vector3 pointerOffset;
+    public Vector3 pointerOffset;
     private Vector3 renderOffset;
 
     void OnLook(InputValue value)

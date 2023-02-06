@@ -52,6 +52,10 @@ public class playerController : MonoBehaviour
                 {
                     change.GetComponent<transport>().myPlayer = gameObject;
                 }
+                if (change.GetComponent<cannon>())
+                {
+                    change.GetComponent<cannon>().myPlayer = gameObject;
+                }
             }
         }
     }
@@ -75,10 +79,19 @@ public class playerController : MonoBehaviour
         jumpCooldown -= Time.deltaTime;
         if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
         {
-            if (interactRay.collider.CompareTag("Interactable") && interactRay.collider.transform.parent.gameObject.GetComponent<transport>())
+            if (interactRay.collider.CompareTag("Interactable"))
             {
-                interactRay.collider.transform.parent.gameObject.GetComponent<transport>().interactText.gameObject.SetActive(true);
-                interactRay.collider.transform.parent.gameObject.GetComponent<transport>().textTimer = 1;
+                if  (interactRay.collider.transform.parent.gameObject.GetComponent<transport>())
+                {
+                    interactRay.collider.transform.parent.gameObject.GetComponent<transport>().interactText.gameObject.SetActive(true);
+                    interactRay.collider.transform.parent.gameObject.GetComponent<transport>().textTimer = 1;
+                }
+                if (interactRay.collider.transform.parent.gameObject.GetComponent<cannon>())
+                {
+                    interactRay.collider.transform.parent.gameObject.GetComponent<cannon>().interactText.gameObject.SetActive(true);
+                    interactRay.collider.transform.parent.gameObject.GetComponent<cannon>().textTimer = 1;
+                }
+
             }
             if (interactRay.collider.CompareTag("Ladder"))
             {
