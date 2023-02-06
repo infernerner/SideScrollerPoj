@@ -38,8 +38,7 @@ public class cannon : MonoBehaviour
         bim = new Vector3(Display.main.renderingWidth / 2, Display.main.renderingHeight / 2, 0);
         aim -= bim;
         aim = aim / 180;
-        cannonObj.transform.LookAt(aim + transform.position - new Vector3(0,0,1), Vector3.up);
-        va = aim + transform.position;
+        cannonObj.transform.LookAt(aim + transform.position, Vector3.up);
     }
 
     void FixedUpdate()
