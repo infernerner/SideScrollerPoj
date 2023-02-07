@@ -12,6 +12,8 @@ public class intractControllable : MonoBehaviour
 
     public bool intractLock;
 
+    public TextMeshPro interactText;
+    public float textTimer;
     void Start()
     {
         myPI = GetComponent<PlayerInput>();
@@ -24,5 +26,11 @@ public class intractControllable : MonoBehaviour
         myPlayer.GetComponent<PlayerInput>().enabled = true;
         myPlayer.GetComponent<Rigidbody>().isKinematic = false;
         myPlayer.transform.parent = null;
+    }
+
+    private void Update()
+    {
+        if (textTimer < 0)
+            interactText.gameObject.SetActive(false);
     }
 }

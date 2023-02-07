@@ -12,9 +12,6 @@ public class cannon : intractControllable
 
     public GameObject cannonObj;
 
-    public TextMeshPro interactText;
-    public float textTimer;
-
     void OnLook(InputValue value)
     {
         if (intractLock)
@@ -25,11 +22,5 @@ public class cannon : intractControllable
             aim = aim / 240;
             cannonObj.transform.LookAt(aim + transform.position, Vector3.up);
         }
-    }
-
-    void FixedUpdate()
-    {
-        if (textTimer < 0)
-            interactText.gameObject.SetActive(false);
     }
 }

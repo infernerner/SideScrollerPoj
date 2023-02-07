@@ -5,25 +5,20 @@ using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
 {
-    private swimController swimController;
-    private Rigidbody myRB;
-    private CapsuleCollider myCC;
-    private PlayerInput myPI;
-    private Vector3 moveVector = new Vector3(0,0,0);
+    protected Rigidbody myRB;
+    protected CapsuleCollider myCC;
+    protected PlayerInput myPI;
 
-    private RaycastHit groundRay;
-    private RaycastHit interactRay;
+    protected Vector3 moveVector = new Vector3(0, 0, 0);
+    protected float jump;
 
-    public float moveSpeed;
+    protected RaycastHit groundRay;
+    protected RaycastHit interactRay;
 
-    private float jump;
-    public float jumpSpeed;
-    public int jumps = 2;
-    public float jumpCooldown;
+
 
     void Start()
     {
-        swimController = GetComponent<swimController>();
         myRB = GetComponent<Rigidbody>();
         myCC = GetComponent<CapsuleCollider>();
         myPI = GetComponent<PlayerInput>();
@@ -55,60 +50,25 @@ public class playerController : MonoBehaviour
             }
         }
     }
-    public void FixedUpdate()
+
+    protected void InteractText()
     {
-        transform.position += transform.right * moveVector.x * Time.deltaTime * moveSpeed;
-
-        if (Physics.Raycast(transform.position, -transform.up, out groundRay, 1))
-        {
-            jumps = 2;
-            jumpCooldown = -1;
-        }
-
-        if (jump > 0 && jumpCooldown < 0 && jumps > 0)
-        {
-            jumps--;
-            jumpCooldown = 1;
-            myRB.AddForce(transform.up * jump * Time.deltaTime * jumpSpeed);
-        }
-
-        jumpCooldown -= Time.deltaTime;
         if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
         {
             if (interactRay.collider.CompareTag("Interactable"))
             {
-                if  (interactRay.collider.transform.parent.gameObject.GetComponent<transport>())
+                GameObject temp = interactRay.collider.transform.parent.gameObject;
+                if (temp.GetComponent<transport>())
                 {
-                    interactRay.collider.transform.parent.gameObject.GetComponent<transport>().interactText.gameObject.SetActive(true);
-                    interactRay.collider.transform.parent.gameObject.GetComponent<transport>().textTimer = 1;
+                    temp.GetComponent<transport>().interactText.gameObject.SetActive(true);
+                    temp.GetComponent<transport>().textTimer = 1;
                 }
-                if (interactRay.collider.transform.parent.gameObject.GetComponent<cannon>())
+                if (temp.GetComponent<cannon>())
                 {
-                    interactRay.collider.transform.parent.gameObject.GetComponent<cannon>().interactText.gameObject.SetActive(true);
-                    interactRay.collider.transform.parent.gameObject.GetComponent<cannon>().textTimer = 1;
+                    temp.GetComponent<cannon>().interactText.gameObject.SetActive(true);
+                    temp.GetComponent<cannon>().textTimer = 1;
                 }
-
             }
-            if (interactRay.collider.CompareTag("Ladder"))
-            {
-                myRB.useGravity = false;
-                transform.position += transform.up * moveVector.y * Time.deltaTime * moveSpeed;
-                myRB.velocity = Vector3.zero;
-            }
-
-        }
-        else
-        {
-            myRB.useGravity = true;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.transform.tag == "Water")
-        {
-            swimController.enabled = true;
-            this.enabled = false;
         }
     }
 }
