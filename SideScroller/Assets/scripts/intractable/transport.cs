@@ -4,34 +4,32 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class transport : MonoBehaviour
+public class transport : intractControllable
 {
-    
-    private PlayerInput myPI;
+
     private Vector3 moveVector = new Vector3(0, 0, 0);
 
     public float moveSpeed = 0;
-    public GameObject myPlayer;
     public TextMeshPro interactText;
     public float textTimer;
 
 
-    void Start()
-    {
-        myPI = GetComponent<PlayerInput>();    
-    }
+    //void Start()
+    //{
+    //    myPI = GetComponent<PlayerInput>();    
+    //}
 
     void OnMove(InputValue value)
     {
         moveVector = value.Get<Vector2>();
     }
 
-    void OnInteract()
-    {
-        myPI.enabled = false;
-        myPlayer.GetComponent<PlayerInput>().enabled = true;
-        myPlayer.GetComponent<Rigidbody>().isKinematic = false;
-    }
+    //void OnInteract()
+    //{
+    //    myPI.enabled = false;
+    //    myPlayer.GetComponent<PlayerInput>().enabled = true;
+    //    myPlayer.GetComponent<Rigidbody>().isKinematic = false;
+    //}
 
     void FixedUpdate()
     {

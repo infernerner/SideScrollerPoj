@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour
 {
+    private swimController swimController;
     private Rigidbody myRB;
     private CapsuleCollider myCC;
     private PlayerInput myPI;
@@ -22,6 +23,7 @@ public class playerController : MonoBehaviour
 
     void Start()
     {
+        swimController = GetComponent<swimController>();
         myRB = GetComponent<Rigidbody>();
         myCC = GetComponent<CapsuleCollider>();
         myPI = GetComponent<PlayerInput>();
@@ -46,16 +48,10 @@ public class playerController : MonoBehaviour
                 transform.parent = interactRay.collider.transform.parent;
                 myPI.enabled = false;
                 myRB.isKinematic = true;
-                var change = interactRay.collider.transform.parent.gameObject.GetComponent<PlayerInput>();
-                change.enabled = true;
-                if (change.GetComponent<transport>())
-                {
-                    change.GetComponent<transport>().myPlayer = gameObject;
-                }
-                if (change.GetComponent<cannon>())
-                {
-                    change.GetComponent<cannon>().myPlayer = gameObject;
-                }
+                GameObject temp = interactRay.collider.transform.parent.gameObject;
+                temp.GetComponent<intractControllable>().myPlayer = gameObject;
+                temp.GetComponent<intractControllable>().intractLock = true;
+                temp.GetComponent<PlayerInput>().enabled = true;
             }
         }
     }
@@ -104,6 +100,15 @@ public class playerController : MonoBehaviour
         else
         {
             myRB.useGravity = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.transform.tag == "Water")
+        {
+            swimController.enabled = true;
+            this.enabled = false;
         }
     }
 }
