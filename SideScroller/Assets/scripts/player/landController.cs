@@ -61,7 +61,7 @@ public class landController : playerController
         {
             myRB.drag = 1f;
             myRB.useGravity = false;
-            myRB.freezeRotation = false;
+            myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
             mySC.enabled = true;
             this.enabled = false;
         }
