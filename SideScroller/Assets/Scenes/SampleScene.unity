@@ -790,7 +790,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac63df95ddda16418d6aaffa70b2ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tank: 0
 --- !u!114 &868591204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1183,6 +1182,7 @@ MonoBehaviour:
   intractLock: 0
   interactText: {fileID: 1862316762}
   textTimer: 0
+  projectile: {fileID: 1752749252387509894, guid: 124b5ae3c2557d240bbdee8986c92e1e, type: 3}
   aim: {x: 0, y: 0, z: 0}
   cannonObj: {fileID: 1763632936}
 --- !u!114 &1248890965

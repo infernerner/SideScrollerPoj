@@ -38,7 +38,7 @@ public class playerController : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
         {
-            if (interactRay.collider.CompareTag("Interactable"))
+            if (interactRay.collider.CompareTag("Interactable") && myPI.enabled == true)
             {
                 transform.parent = interactRay.collider.transform.parent;
                 myPI.enabled = false;

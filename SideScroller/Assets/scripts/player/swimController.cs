@@ -6,7 +6,6 @@ using UnityEngine.InputSystem;
 public class swimController : playerController
 {
     private landController myLC;
-    public bool tank;
 
     void Start()
     {
@@ -18,16 +17,10 @@ public class swimController : playerController
 
     private void FixedUpdate()
     {
-        if (tank)
+        if (moveVector != Vector3.zero)
         {
             myRB.AddTorque(0, 0, moveVector.x * -120 * Time.deltaTime);
             myRB.AddRelativeForce(0, moveVector.y * 300 * Time.deltaTime, 0);
-        }
-        else if(moveVector != Vector3.zero)
-        {
-            myRB.AddForce(moveVector * 300 * Time.deltaTime);
-            transform.LookAt(transform.position + moveVector);
-            transform.Rotate(90, 0, 0);
         }
         InteractText();
     }
