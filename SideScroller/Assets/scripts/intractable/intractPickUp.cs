@@ -15,6 +15,8 @@ public class intractPickUp : MonoBehaviour
 
     private void Update()
     {
+        textTimer -= Time.deltaTime;
+
         if (textTimer < 0)
             interactText.gameObject.SetActive(false);
     }

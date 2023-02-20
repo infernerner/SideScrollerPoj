@@ -55,6 +55,7 @@ public class playerController : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
         {
+            Debug.DrawRay(transform.position, transform.forward);
             if (interactRay.collider.CompareTag("Interactable"))
             {
                 GameObject temp = interactRay.collider.transform.parent.gameObject;
