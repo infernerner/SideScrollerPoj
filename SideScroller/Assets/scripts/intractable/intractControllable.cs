@@ -6,7 +6,7 @@ using TMPro;
 
 public class intractControllable : MonoBehaviour
 {
-    private PlayerInput myPI;
+    protected PlayerInput myPI;
 
     public GameObject myPlayer;
 

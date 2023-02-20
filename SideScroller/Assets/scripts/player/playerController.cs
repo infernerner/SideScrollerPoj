@@ -38,7 +38,7 @@ public class playerController : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
         {
-            if (interactRay.collider.CompareTag("Interactable") && myPI.enabled == true)
+            if (interactRay.collider.CompareTag("Interactable") && myPI != null)
             {
                 transform.parent = interactRay.collider.transform.parent;
                 myPI.enabled = false;
@@ -67,6 +67,11 @@ public class playerController : MonoBehaviour
                 {
                     temp.GetComponent<cannon>().interactText.gameObject.SetActive(true);
                     temp.GetComponent<cannon>().textTimer = 1;
+                }
+                if (temp.GetComponent<intractPickUp>())
+                {
+                    temp.GetComponent<intractPickUp>().interactText.gameObject.SetActive(true);
+                    temp.GetComponent<intractPickUp>().textTimer = 1;
                 }
             }
         }
