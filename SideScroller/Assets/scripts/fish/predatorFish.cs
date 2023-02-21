@@ -12,31 +12,45 @@ public class predatorFish : MonoBehaviour
     public float turnSpeed = 100;
     public Transform turnTransform;
     public GameObject target;
+    public Collider[] unfish;
+    public List<GameObject> dangerFish;
+    public List<GameObject> foodFish;
+    public List<GameObject> breedFish;
     private void Start()
     {
         myRB = GetComponent<Rigidbody>();
     }
     void FixedUpdate()
     {
-        Debug.Log(Quaternion.RotateTowards(transform.rotation,turnTransform.rotation,180));
+        //Debug.Log(Quaternion.Angle(transform.rotation, turnTransform.rotation));
+        //Debug.Log(Quaternion.RotateTowards(transform.rotation,turnTransform.rotation,180));
         turnTransform.LookAt(target.transform, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
-        //if (Physics.OverlapSphere(transform.position,10) != null)
-        //{
-        //
-        //    if (myEyes.collider.GetComponent<predatorFish>().FishTier <= FishTier)
-        //    {
-        //        myRB.AddForce(transform.up * swimSpeed);
-        //        
-        //    }
-        //
-        //}
-        //else
-        //{
-        //    myRB.AddForce(transform.up * swimSpeed);
-        //    myRB.AddTorque(transform.forward * turnSpeed * Random.Range(-1f, 1f) * Mathf.Sin(Time.fixedTime));
-        //}
-        //
-        //
+        unfish = Physics.OverlapSphere(transform.position, 10f);
+        dangerFish.Clear();
+        foodFish.Clear();
+        breedFish.Clear();
+        foreach (Collider col in unfish)
+        {
+
+            if (col.gameObject == gameObject)
+            {
+
+            }
+            else if (col.gameObject.GetComponent<predatorFish>().FishTier > FishTier)
+            {
+                dangerFish.Add(col.gameObject);
+            }
+            else if (col.gameObject.GetComponent<predatorFish>().FishTier < FishTier)
+            {
+                foodFish.Add(col.gameObject);
+            }
+            else if (col.gameObject.GetComponent<predatorFish>().FishTier == FishTier)
+            {
+                breedFish.Add(col.gameObject);
+            }
+
+            
+        }
     }
 }
