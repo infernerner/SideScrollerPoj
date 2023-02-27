@@ -114,6 +114,8 @@ public class predatorFish : MonoBehaviour
         {
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
             turnTransform.Rotate(Vector3.left * 2);
+            turnTransform.LookAt(turnTransform.forward, Vector3.up);
+
         }
         transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
         Vector3 test = new Vector3(transform.forward.x, transform.forward.y, 0);
