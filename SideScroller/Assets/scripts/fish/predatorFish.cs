@@ -15,10 +15,10 @@ public class predatorFish : MonoBehaviour
     public float sight = 5;
     public GameObject prefab;
     public Transform turnTransform;
-    private Collider[] unfish;
-    private List<GameObject> dangerFish;
-    private List<GameObject> foodFish;
-    private List<GameObject> breedFish;
+    public Collider[] unfish;
+    public List<GameObject> dangerFish;
+    public List<GameObject> foodFish;
+    public List<GameObject> breedFish;
 
     private void Start()
     {
@@ -41,30 +41,33 @@ public class predatorFish : MonoBehaviour
         breedFish.Clear();
         foreach (Collider col in unfish)
         {
-            if (Physics.Raycast(transform.position, col.transform.position - transform.position, out myEyes) && col.gameObject.GetComponent<predatorFish>())
+            if (Physics.Raycast(transform.position, col.transform.position - transform.position, out myEyes) && col.gameObject.GetComponent<predatorFish>() || col.gameObject.GetComponent<landController>())
             {
                 if (myEyes.collider.gameObject == col.gameObject)
                 {
-                    
                     if (col.gameObject == gameObject) { }
-                    else if (col.gameObject.GetComponent<predatorFish>().FishTier > FishTier)
+                    if (col.GetComponent<predatorFish>())
                     {
-                        dangerFish.Add(col.gameObject);
+                        if (col.gameObject.GetComponent<predatorFish>().FishTier > FishTier)
+                        {
+                            dangerFish.Add(col.gameObject);
+                        }
+                        else if (col.gameObject.GetComponent<predatorFish>().FishTier < FishTier)
+                        {
+
+                            foodFish.Add(col.gameObject);
+                        }
+                        else if (col.gameObject.GetComponent<predatorFish>().FishTier == FishTier)
+                        {
+                            breedFish.Add(col.gameObject);
+                        }
                     }
-                    else if (col.gameObject.GetComponent<predatorFish>().FishTier < FishTier)
-                    {
-                        
+                    else if (col.GetComponent <playerStats>() && FishTier > 0)
                         foodFish.Add(col.gameObject);
-                    }
-                    else if (col.gameObject.GetComponent<predatorFish>().FishTier == FishTier)
-                    {
-                        breedFish.Add(col.gameObject);
-                    }
                 }
                 else
                 Debug.DrawRay(transform.position, col.transform.position - transform.position, Color.white);
             }
-
         }
         turnTransform.position = transform.position;
         foodFish.Sort((t2, t1) => Vector3.Distance(gameObject.transform.position, t2.transform.position).CompareTo(Vector3.Distance(gameObject.transform.position, t1.transform.position)));
@@ -88,7 +91,7 @@ public class predatorFish : MonoBehaviour
                 if (myMouth.collider.gameObject == breedFish[0].gameObject && breedFish[0].GetComponent<predatorFish>().hungry > 0)
                 {
                     hungry -= 30 * (FishTier +1);
-                    breedFish[0].GetComponent<predatorFish>().hungry -= 30 * (FishTier + 1);
+                    myMouth.collider.GetComponent<predatorFish>().hungry -= 30 * (FishTier + 1);
                     Instantiate(prefab);
                 }
 
@@ -104,22 +107,55 @@ public class predatorFish : MonoBehaviour
             {
                 if (myMouth.collider.gameObject == foodFish[0].gameObject)
                 {
-                    hungry += 30 * (foodFish[0].GetComponent<predatorFish>().FishTier +1);
-                    myRB.AddForce(transform.forward * swimSpeed * 10f);
-                    Destroy(foodFish[0].transform.parent.gameObject,0.1f);
+                    if (myMouth.collider.GetComponent<predatorFish>())
+                    {
+                        hungry += 30 * (myMouth.collider.GetComponent<predatorFish>().FishTier + 1);
+                        myRB.AddForce(transform.forward * swimSpeed * 10f);
+                        Destroy(foodFish[0].transform.parent.gameObject, 0.1f);
+                    }
+                    else if (myMouth.collider.GetComponent<playerStats>())
+                    {
+                        var stats = myMouth.collider.GetComponent<playerStats>();
+                        if (stats.invulnerable < Time.time)
+                        {
+                            stats.invulnerable = Time.time + stats.invulnerableTime;
+                            stats.health--;
+                            myMouth.collider.GetComponent<Rigidbody>().AddForce(-80*(transform.position - myMouth.collider.transform.position));
+                        }
+                        
+                    }
                 }
             }
         }
         else if (Physics.Raycast(transform.position, transform.forward, out myEyes,10f))
         {
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            turnTransform.Rotate(Vector3.left , 5);
+            turnTransform.Rotate(Vector3.left , 2);
         }
         transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
         Vector3 test = new Vector3(transform.forward.x, transform.forward.y, 0);
-        Debug.Log(test);
         transform.position = new Vector3(transform.position.x, transform.position.y,0);
         myRB.AddForce(test * swimSpeed);
         
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Water")
+        {
+            myRB.useGravity = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.transform.tag == "Water")
+        {
+            turnTransform.LookAt(Vector3.down);
+            myRB.useGravity = true;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
+            Vector3 test = new Vector3(transform.forward.x, transform.forward.y, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            myRB.AddForce(test * swimSpeed);
+        }
     }
 }

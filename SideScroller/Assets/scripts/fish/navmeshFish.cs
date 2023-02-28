@@ -9,6 +9,7 @@ public class navmeshFish : MonoBehaviour
     private Rigidbody myRB;
     private RaycastHit myEyes;
     private RaycastHit myMouth;
+    private float nextTime = 0;
     public float hungry = 0;
 
     public int FishTier = 1;
@@ -75,7 +76,7 @@ public class navmeshFish : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, dangerFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, dangerFish[0].transform.position - transform.position, Color.red);
-            agent.destination = dangerFish[0].transform.forward * 5 + transform.position;
+            agent.destination = transform.position + (transform.position - dangerFish[0].transform.position);
 
         }
         else if (breedFish.Count > 0 && hungry > 0)
@@ -105,9 +106,16 @@ public class navmeshFish : MonoBehaviour
                 if (myMouth.collider.gameObject == foodFish[0].gameObject)
                 {
                     hungry += 30 * (foodFish[0].GetComponent<navmeshFish>().FishTier + 1);
-                    myRB.AddForce(transform.forward * swimSpeed * 10f);
-                    Destroy(foodFish[0].transform.parent.gameObject, 0.1f);
+                    Destroy(foodFish[0].gameObject, 0.1f);
                 }
+            }
+        }
+        else
+        {
+            if (nextTime < Time.time)
+            {
+                nextTime = Time.time + 5;
+                agent.destination = new Vector2(Random.Range(10f,-10f),Random.Range(-10f,10f));
             }
         }
 
