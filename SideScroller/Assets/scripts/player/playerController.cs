@@ -38,7 +38,7 @@ public class playerController : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
         {
-            if (interactRay.collider.CompareTag("Interactable") && myPI != null)
+            if (interactRay.collider.CompareTag("Interactable") && myPI != null && !interactRay.collider.transform.parent.GetComponent<intractPickUp>())
             {
                 transform.parent = interactRay.collider.transform.parent;
                 myPI.enabled = false;
@@ -47,6 +47,10 @@ public class playerController : MonoBehaviour
                 temp.GetComponent<intractControllable>().myPlayer = gameObject;
                 temp.GetComponent<intractControllable>().intractLock = true;
                 temp.GetComponent<PlayerInput>().enabled = true;
+            }
+            else if (interactRay.collider.CompareTag("Interactable") && myPI != null && interactRay.collider.transform.parent.GetComponent<intractPickUp>())
+            {
+
             }
         }
     }
@@ -62,17 +66,17 @@ public class playerController : MonoBehaviour
                 if (temp.GetComponent<transport>())
                 {
                     temp.GetComponent<transport>().interactText.gameObject.SetActive(true);
-                    temp.GetComponent<transport>().textTimer = 1;
+                    temp.GetComponent<transport>().textTimer = 1 + Time.time;
                 }
                 if (temp.GetComponent<cannon>())
                 {
                     temp.GetComponent<cannon>().interactText.gameObject.SetActive(true);
-                    temp.GetComponent<cannon>().textTimer = 1;
+                    temp.GetComponent<cannon>().textTimer = 1 + Time.time;
                 }
                 if (temp.GetComponent<intractPickUp>())
                 {
                     temp.GetComponent<intractPickUp>().interactText.gameObject.SetActive(true);
-                    temp.GetComponent<intractPickUp>().textTimer = 1;
+                    temp.GetComponent<intractPickUp>().textTimer = 1 + Time.time;
                 }
             }
         }

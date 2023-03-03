@@ -19,7 +19,5 @@ public class transport : intractControllable
     void FixedUpdate()
     {
         transform.position += moveVector * Time.deltaTime * moveSpeed;
-        textTimer -= Time.deltaTime;
-
     }
 }

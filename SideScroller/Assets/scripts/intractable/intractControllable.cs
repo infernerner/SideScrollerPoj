@@ -30,7 +30,7 @@ public class intractControllable : MonoBehaviour
 
     private void Update()
     {
-        if (textTimer < 0)
+        if (textTimer < Time.time)
             interactText.gameObject.SetActive(false);
     }
 }

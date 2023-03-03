@@ -26,18 +26,13 @@ public class cannon : intractControllable
 
     void OnFire()
     {
-        if (fireDelay < 0)
+        if (fireDelay < Time.time)
         {
-            fireDelay = 1;
+            fireDelay = Time.time + 1;
             GameObject bullet = Instantiate(projectile,cannonObj.transform.position + cannonObj.transform.forward * 4,cannonObj.transform.rotation);
             bullet.transform.Rotate(90, 0, 0);
             bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 2000f);
             Destroy(bullet, 2);
         }
-    }
-
-    private void Update()
-    {
-        fireDelay -= Time.deltaTime;
     }
 }
