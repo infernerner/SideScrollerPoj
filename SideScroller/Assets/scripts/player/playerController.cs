@@ -36,22 +36,20 @@ public class playerController : MonoBehaviour
 
     void OnInteract()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
+        Physics.Raycast(transform.position, transform.forward, out interactRay, 1);
+        if (interactRay.collider.CompareTag("Interactable") && myPI != null && !interactRay.collider.transform.parent.GetComponent<intractPickUp>())
         {
-            if (interactRay.collider.CompareTag("Interactable") && myPI != null && !interactRay.collider.transform.parent.GetComponent<intractPickUp>())
-            {
-                transform.parent = interactRay.collider.transform.parent;
-                myPI.enabled = false;
-                myRB.isKinematic = true;
-                GameObject temp = interactRay.collider.transform.parent.gameObject;
-                temp.GetComponent<intractControllable>().myPlayer = gameObject;
-                temp.GetComponent<intractControllable>().intractLock = true;
-                temp.GetComponent<PlayerInput>().enabled = true;
-            }
-            else if (interactRay.collider.CompareTag("Interactable") && myPI != null && interactRay.collider.transform.parent.GetComponent<intractPickUp>())
-            {
+            transform.parent = interactRay.collider.transform.parent;
+            myPI.enabled = false;
+            myRB.isKinematic = true;
+            GameObject temp = interactRay.collider.transform.parent.gameObject;
+            temp.GetComponent<intractControllable>().myPlayer = gameObject;
+            temp.GetComponent<intractControllable>().intractLock = true;
+            temp.GetComponent<PlayerInput>().enabled = true;
+        }
+        else if (interactRay.collider.CompareTag("Interactable") && myPI != null && interactRay.collider.transform.parent.GetComponent<intractPickUp>())
+        {
 
-            }
         }
     }
 

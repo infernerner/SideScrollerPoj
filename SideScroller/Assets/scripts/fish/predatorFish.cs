@@ -141,10 +141,6 @@ public class predatorFish : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
             myRB.AddForce(test * swimSpeed);
         }
-        else if (dead && inWater)
-        {
-            myRB.AddForce(Vector3.up * 5);
-        }
         
     }
     private void OnTriggerEnter(Collider other)
