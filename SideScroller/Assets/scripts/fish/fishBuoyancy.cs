@@ -14,8 +14,9 @@ public class fishBuoyancy : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void dead()
     {
+        
         Physics.Raycast(transform.position, Vector3.forward, out water);
         if (water.collider != null)
         {

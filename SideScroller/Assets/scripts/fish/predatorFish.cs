@@ -7,6 +7,7 @@ public class predatorFish : MonoBehaviour
     private Rigidbody myRB;
     private RaycastHit myEyes;
     private RaycastHit myMouth;
+    private RaycastHit water;
     public float hungry = 0;
 
     public int FishTier = 1;
@@ -19,6 +20,7 @@ public class predatorFish : MonoBehaviour
     private List<GameObject> dangerFish;
     private List<GameObject> foodFish;
     private List<GameObject> breedFish;
+    private fishBuoyancy[] buoyancy;
     public bool dead = false;
     public bool inWater = true;
 
@@ -29,6 +31,7 @@ public class predatorFish : MonoBehaviour
         dangerFish = new List<GameObject>(gameObjects);
         foodFish = new List<GameObject>(gameObjects);
         breedFish = new List<GameObject>(gameObjects);
+        buoyancy = transform.GetComponentsInChildren<fishBuoyancy>();
     }
     void FixedUpdate()
     {
@@ -137,35 +140,40 @@ public class predatorFish : MonoBehaviour
                 turnTransform.Rotate(Vector3.left, 2);
             }
             transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
-            Vector3 test = new Vector3(transform.forward.x, transform.forward.y, 0);
+            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
             transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            myRB.AddForce(test * swimSpeed);
-        }
-        
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.transform.tag == "Water")
-        {
-            myRB.useGravity = false;
-            inWater = true;
-        }
-    }
+            myRB.AddForce(stay2D * swimSpeed);
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.transform.tag == "Water")
+        }
+        else if (dead || !inWater)
+        {
+            foreach (fishBuoyancy boy in buoyancy)
+            {
+                boy.dead();
+            }
+        }
+        Physics.Raycast(transform.position, Vector3.forward, out water);
+        if  (water.collider == null)
         {
             inWater = false;
-            myRB.useGravity = true;
-            if (!dead)
-            {
-                turnTransform.LookAt(Vector3.down);
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
-                Vector3 test = new Vector3(transform.forward.x, transform.forward.y, 0);
-                transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-                myRB.AddForce(test * swimSpeed);
-            }
+            turnTransform.LookAt(Vector3.down);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 90);
+            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            myRB.AddForce(stay2D * swimSpeed);
+        }
+        else if (water.collider.tag != "Water")
+        {
+            inWater = false;
+            turnTransform.LookAt(Vector3.down);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 90);
+            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+            myRB.AddForce(stay2D * swimSpeed);
+        }
+        else if (water.collider.tag == "Water")
+        {
+            inWater = true;
         }
     }
 }
