@@ -5,28 +5,27 @@ using UnityEngine.InputSystem;
 
 public class weaponController : MonoBehaviour
 {
-    public GameObject camera;
+    public Camera myCamera;
     public GameObject weapon;
     private Vector3 aim;
-    private Vector3 centerOffset;
+    private float fireDelay;
+    public GameObject projectile;
 
-    // Start is called before the first frame update
-    void Start()
+    void OnFire()
     {
-        
+        if (fireDelay < Time.time)
+        {
+            fireDelay = Time.time + 1;
+            GameObject bullet = Instantiate(projectile, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
+            bullet.transform.Rotate(90, 0, 0);
+            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 1000f);
+            bullet.transform.LookAt(bullet.GetComponent<Rigidbody>().velocity + bullet.transform.position, Vector3.up);
+            Destroy(bullet, 4);
+        }
     }
-    void OnLook(InputValue value)
-    {
-        aim = value.Get<Vector2>();
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        centerOffset = new Vector3(Display.main.renderingWidth / 2, Display.main.renderingHeight / 2, 0f);
-        aim -= centerOffset;
-        aim = aim / 240;
-        weapon.transform.LookAt(new Vector3(aim.x + camera.transform.position.x, aim.y + camera.transform.position.y, 0), Vector3.up);
-        Debug.Log(new Vector3(aim.x + camera.transform.position.x, aim.y + camera.transform.position.y, 0));
+        aim = myCamera.ScreenToWorldPoint(Input.mousePosition);
+        weapon.transform.LookAt(new Vector3(aim.x, aim.y, 0), Vector3.up);
     }
 }
