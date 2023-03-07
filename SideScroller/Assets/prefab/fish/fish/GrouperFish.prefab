@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hungry: -30
   FishTier: 0
-  swimSpeed: 6
+  swimSpeed: 8
   turnSpeed: 1
   sight: 5
   prefab: {fileID: 3651172370355423743}

@@ -7,9 +7,12 @@ public class weaponController : MonoBehaviour
 {
     public Camera myCamera;
     public GameObject weapon;
-    private Vector3 aim;
     private float fireDelay;
     public GameObject projectile;
+
+    public Vector3 pointerOffset;
+    private Vector3 renderOffset;
+    private Vector3 moveVector;
 
     void OnFire()
     {
@@ -23,9 +26,21 @@ public class weaponController : MonoBehaviour
             Destroy(bullet, 4);
         }
     }
+    void OnLook(InputValue value)
+    {
+        pointerOffset = value.Get<Vector2>();
+        renderOffset = new Vector3(Display.main.renderingWidth / 2, Display.main.renderingHeight / 2, 0);
+        pointerOffset -= renderOffset;
+        pointerOffset = pointerOffset / 100;
+    }
+
+    void OnMove(InputValue value)
+    {
+        moveVector = value.Get<Vector2>();
+    }
+
     void Update()
     {
-        aim = myCamera.ScreenToWorldPoint(Input.mousePosition);
-        weapon.transform.LookAt(new Vector3(aim.x, aim.y, 0), Vector3.up);
+        weapon.transform.LookAt(pointerOffset + transform.position - (moveVector), Vector3.up);
     }
 }
