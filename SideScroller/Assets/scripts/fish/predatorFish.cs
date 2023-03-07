@@ -153,27 +153,31 @@ public class predatorFish : MonoBehaviour
             }
         }
         Physics.Raycast(transform.position, Vector3.forward, out water);
-        if  (water.collider == null)
+        if (!dead)
         {
-            inWater = false;
-            turnTransform.LookAt(Vector3.down);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 90);
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            myRB.AddForce(stay2D * swimSpeed);
-        }
-        else if (water.collider.tag != "Water")
-        {
-            inWater = false;
-            turnTransform.LookAt(Vector3.down);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 90);
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-            myRB.AddForce(stay2D * swimSpeed);
-        }
-        else if (water.collider.tag == "Water")
-        {
-            inWater = true;
-        }
+            if (water.collider == null)
+            {
+                inWater = false;
+                turnTransform.forward *= -1;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
+                Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+                myRB.AddForce(stay2D * swimSpeed);
+                transform.position += stay2D;
+
+            }
+            else if (water.collider.tag != "Water")
+            {
+                inWater = false;
+                turnTransform.forward *= -1;
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
+                Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+                myRB.AddForce(stay2D * swimSpeed);
+                transform.position += stay2D;
+            }
+            else if (water.collider.tag == "Water")
+            {
+                inWater = true;
+            }
+        } 
     }
 }

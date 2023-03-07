@@ -18,7 +18,7 @@ public class weaponController : MonoBehaviour
             fireDelay = Time.time + 1;
             GameObject bullet = Instantiate(projectile, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
             bullet.transform.Rotate(90, 0, 0);
-            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 1000f);
+            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 220f);
             bullet.transform.LookAt(bullet.GetComponent<Rigidbody>().velocity + bullet.transform.position, Vector3.up);
             Destroy(bullet, 4);
         }

@@ -1487,6 +1487,7 @@ MonoBehaviour:
   myCamera: {fileID: 2040623572}
   weapon: {fileID: 1526070927}
   projectile: {fileID: 4556738051865217160, guid: c78d489415f691b4eb0db58fceeb1196, type: 3}
+  weaponPrefab: {fileID: 0}
 --- !u!224 &911562988 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1692005494, guid: 377a3199ab75de842bf039ecaaf6063f, type: 3}
