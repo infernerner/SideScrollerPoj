@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 109
+  controlID: 114
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 110
+  controlID: 103
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 111
+  controlID: 104
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -215,8 +215,8 @@ MonoBehaviour:
     y: 0
     width: 749.6
     height: 480.8
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 12}
@@ -340,7 +340,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 0
+    m_EnableMouseInput: 1
     m_EnableSliderZoomHorizontal: 0
     m_EnableSliderZoomVertical: 0
     m_UniformScale: 1
@@ -402,9 +402,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d8faffff
-      m_LastClickedID: -1320
-      m_ExpandedIDs: d8faffffe0faffff2efbffff
+      m_SelectedIDs: be5f0000
+      m_LastClickedID: 24510
+      m_ExpandedIDs: bafaffffd8faffff2efbffffae5f0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -653,9 +653,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -25.114738, y: -0.87423193, z: 1.3664942}
+    m_Target: {x: -44.331852, y: -14.516958, z: -6.6673684}
     speed: 2
-    m_Value: {x: -25.114738, y: -0.87423193, z: 1.3664942}
+    m_Value: {x: -44.331852, y: -14.516958, z: -6.6673684}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -702,13 +702,13 @@ MonoBehaviour:
     m_GridAxis: 2
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.09272796, y: 0.054339327, z: -0.005068058, w: 0.9941986}
+    m_Target: {x: 0.013445773, y: -0.08927139, z: 0.0012046676, w: 0.9959214}
     speed: 2
-    m_Value: {x: 0.092727594, y: 0.054339115, z: -0.005068038, w: 0.9941947}
+    m_Value: {x: 0.013447491, y: -0.08777692, z: 0.0011844911, w: 0.9960487}
   m_Size:
-    m_Target: 2.2550266
+    m_Target: 10.282533
     speed: 2
-    m_Value: 2.2550266
+    m_Value: 10.282533
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -774,22 +774,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/scripts/fish
+    - Assets/prefab/fish/fish
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/scripts/fish
+  - Assets/prefab/fish/fish
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\STUla\OneDrive\Documents\GitHub\SideScrollerPoj\SideScroller
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 147}
-    m_SelectedIDs: 48670000
-    m_LastClickedID: 26440
-    m_ExpandedIDs: 00000000286700002a6700002c6700002e67000030670000326700005667000000ca9a3b
+    scrollPos: {x: 0, y: 162.99997}
+    m_SelectedIDs: 686b0000
+    m_LastClickedID: 27496
+    m_ExpandedIDs: 000000003467000036670000386700003a6700003c6700003e670000406700005867000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -817,7 +817,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000286700002a6700002c6700002e6700003067000032670000
+    m_ExpandedIDs: 000000003467000036670000386700003a6700003c6700003e67000040670000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
