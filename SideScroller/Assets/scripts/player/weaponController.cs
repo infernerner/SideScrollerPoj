@@ -7,23 +7,42 @@ public class weaponController : MonoBehaviour
 {
     public Camera myCamera;
     public GameObject weapon;
-    private float fireDelay;
-    public GameObject projectile;
+    public GameObject instance;
+    public bool readyshot = true;
+
 
     public Vector3 pointerOffset;
     private Vector3 renderOffset;
     private Vector3 moveVector;
+    private PlayerInput input;
+    private SpringJoint joint;
+
+    private void Start()
+    {
+        joint = GetComponent<SpringJoint>();
+        input = GetComponent<PlayerInput>();
+    }
+
+    private void OnScroll(InputValue value)
+    {
+        joint.maxDistance += (value.Get<float>() / 240);
+    }
 
     void OnFire()
     {
-        if (fireDelay < Time.time)
+        if (readyshot)
         {
-            fireDelay = Time.time + 1;
-            GameObject bullet = Instantiate(projectile, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
+            joint.maxDistance = 8f;
+            readyshot = false;
+            GameObject bullet = Instantiate(instance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
             bullet.transform.Rotate(90, 0, 0);
-            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 220f);
+            bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 420f);
             bullet.transform.LookAt(bullet.GetComponent<Rigidbody>().velocity + bullet.transform.position, Vector3.up);
-            Destroy(bullet, 4);
+            joint.connectedBody = bullet.GetComponent<Rigidbody>();
+            bullet.GetComponent<bulletPhysics>().myPlayer = gameObject;
+
+            weapon.active = false;
+
         }
     }
     void OnLook(InputValue value)
@@ -31,7 +50,7 @@ public class weaponController : MonoBehaviour
         pointerOffset = value.Get<Vector2>();
         renderOffset = new Vector3(Display.main.renderingWidth / 2, Display.main.renderingHeight / 2, 0);
         pointerOffset -= renderOffset;
-        pointerOffset = pointerOffset / 100;
+        pointerOffset = pointerOffset / 25;
     }
 
     void OnMove(InputValue value)
@@ -41,6 +60,6 @@ public class weaponController : MonoBehaviour
 
     void Update()
     {
-        weapon.transform.LookAt(pointerOffset + transform.position - (moveVector), Vector3.up);
+        weapon.transform.LookAt(pointerOffset + transform.position, Vector3.up);
     }
 }

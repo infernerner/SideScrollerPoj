@@ -23,6 +23,7 @@ public class predatorFish : MonoBehaviour
     private fishBuoyancy[] buoyancy;
     public bool dead = false;
     public bool inWater = true;
+    public bool harpooned = false;
 
     private void Start()
     {
@@ -179,5 +180,17 @@ public class predatorFish : MonoBehaviour
                 inWater = true;
             }
         } 
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player" && dead)
+        {
+            if (harpooned)
+            {
+                collision.gameObject.GetComponent<weaponController>().readyshot = true;
+                collision.gameObject.GetComponent<weaponController>().weapon.active = true;
+            }
+            Destroy(gameObject.transform.parent.gameObject);
+        }
     }
 }
