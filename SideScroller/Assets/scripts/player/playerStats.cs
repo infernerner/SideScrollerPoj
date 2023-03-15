@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerStats : MonoBehaviour
 {
@@ -14,5 +15,10 @@ public class playerStats : MonoBehaviour
     {
         public GameObject item;
         public float amount; 
+    }
+    private void FixedUpdate()
+    {
+        if (health < 0f)
+            SceneManager.LoadScene(0);
     }
 }

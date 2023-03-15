@@ -10,7 +10,6 @@ public class weaponController : MonoBehaviour
     public GameObject instance;
     public bool readyshot = true;
 
-
     public Vector3 pointerOffset;
     private Vector3 renderOffset;
     private Vector3 moveVector;
@@ -26,6 +25,7 @@ public class weaponController : MonoBehaviour
     private void OnScroll(InputValue value)
     {
         joint.maxDistance += (value.Get<float>() / 240);
+        joint.maxDistance = Mathf.Clamp(joint.maxDistance, 0f, 15f);
     }
 
     void OnFire()
