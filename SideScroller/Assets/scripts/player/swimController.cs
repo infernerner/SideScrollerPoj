@@ -25,14 +25,21 @@ public class swimController : playerController
                 myRB.AddForce(moveVector * 300 * Time.deltaTime);
                 transform.LookAt(transform.position + moveVector);
                 transform.Rotate(90, 0, 0);
+            transform.position = new Vector3 (transform.position.x, transform.position.y,0);
             
         }
         InteractText();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.transform.tag == "Water")
+        Physics.Raycast(transform.position, Vector3.forward, out interactRay, 1);
+        if (interactRay.collider == null)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+            myRB.drag = 0f;
+            myRB.useGravity = true;
+            myRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
+            myLC.enabled = true;
+            this.enabled = false;
+        }
+        else if (interactRay.collider.tag != "Water")
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             myRB.drag = 0f;

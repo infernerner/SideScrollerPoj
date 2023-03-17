@@ -40,12 +40,13 @@ public class landController : playerController
         }
 
         jumpCooldown -= Time.deltaTime;
-        if (Physics.Raycast(transform.position, transform.forward, out interactRay, 1))
+        if (Physics.Raycast(transform.position, Vector3.forward, out interactRay, 1))
         {
             if (interactRay.collider.CompareTag("Ladder"))
             {
                 myRB.useGravity = false;
                 transform.position += transform.up * moveVector.y * Time.deltaTime * moveSpeed;
+                transform.position = new Vector3(transform.position.x, transform.position.y, 0);
                 myRB.velocity = Vector3.zero;
             }
         }
@@ -53,17 +54,18 @@ public class landController : playerController
         {
             myRB.useGravity = true;
         }
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.transform.tag == "Water")
+        Physics.Raycast(transform.position, Vector3.forward, out interactRay, 1);
+        if (interactRay.collider != null)
         {
-            myRB.drag = 1f;
-            myRB.useGravity = false;
-            myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
-            mySC.enabled = true;
-            this.enabled = false;
+            if (interactRay.collider.tag == "Water")
+            {
+                myRB.drag = 1f;
+                myRB.useGravity = false;
+                myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+                mySC.enabled = true;
+                this.enabled = false;
+            }
         }
     }
 }

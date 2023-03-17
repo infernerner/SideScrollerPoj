@@ -22,10 +22,10 @@ public class intractControllable : MonoBehaviour
     void OnInteract()
     {
         intractLock = false;
-        myPI.enabled = false;
         myPlayer.GetComponent<PlayerInput>().enabled = true;
         myPlayer.GetComponent<Rigidbody>().isKinematic = false;
         myPlayer.transform.parent = null;
+        myPI.enabled = false;
     }
 
     private void Update()
