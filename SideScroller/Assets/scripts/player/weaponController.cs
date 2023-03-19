@@ -41,8 +41,7 @@ public class weaponController : MonoBehaviour
             joint.connectedBody = bullet.GetComponent<Rigidbody>();
             bullet.GetComponent<bulletPhysics>().myPlayer = gameObject;
 
-            weapon.active = false;
-
+            weapon.SetActive(false);
         }
     }
     void OnLook(InputValue value)

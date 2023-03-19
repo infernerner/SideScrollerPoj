@@ -55,7 +55,7 @@ public class bulletPhysics : MonoBehaviour
         if (collision.gameObject.GetComponent<weaponController>())
         {
             collision.gameObject.GetComponent<weaponController>().readyshot = true;
-            collision.gameObject.GetComponent<weaponController>().weapon.active = true;
+            collision.gameObject.GetComponent<weaponController>().weapon.SetActive(true); ;
             myPlayer.GetComponent<SpringJoint>().connectedBody = collision.gameObject.GetComponent<Rigidbody>();
             Destroy(gameObject);
         }
