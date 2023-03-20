@@ -11,8 +11,8 @@ public class predatorFish : MonoBehaviour
     [Header("fight, flight, fuck")]
 
     public string species;
-    public List<string> preyList;
-    public List<string> predatorList;
+    public List<predatorFish> preyList;
+    public List<predatorFish> predatorList;
 
     public GameObject myPlayer;
     public float hungry = 0;
@@ -88,11 +88,11 @@ public class predatorFish : MonoBehaviour
                     if (col.GetComponent<predatorFish>())
                     {
                         predatorFish script = col.GetComponent<predatorFish>();
-                        foreach (string prey in preyList)
-                            if (prey == script.species)
+                        foreach (predatorFish prey in preyList)
+                            if (prey.species == script.species)
                                 foodFish.Add(col.gameObject);
-                        foreach (string predator in predatorList)
-                            if (predator == script.species)
+                        foreach (predatorFish predator in predatorList)
+                            if (predator.species == script.species)
                                 dangerFish.Add(col.gameObject);
                         if (species == script.species)
                             breedFish.Add(col.gameObject);
@@ -113,14 +113,19 @@ public class predatorFish : MonoBehaviour
     }
     private void survivalChoice()
     {
-        if (dangerFish.Count > 0)
+        if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles (does not work)
+        {
+            Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
+            direction = Quaternion.LookRotation(Vector3.up + transform.right, Vector3.up);
+        }
+        else if (dangerFish.Count > 0) // avoid predator
         {
             if (Physics.Raycast(transform.position, dangerFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, dangerFish[0].transform.position - transform.position, Color.red);
 
             direction = Quaternion.LookRotation(transform.position - dangerFish[0].transform.position,Vector3.up);
         }
-        else if (breedFish.Count > 0 && hungry > 0)
+        else if (breedFish.Count > 0 && hungry > 0) // hunt food
         {
             if (Physics.Raycast(transform.position, breedFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, breedFish[0].transform.position - transform.position, Color.yellow);
@@ -139,7 +144,7 @@ public class predatorFish : MonoBehaviour
             }
 
         }
-        else if (foodFish.Count > 0 && hungry < 0)
+        else if (foodFish.Count > 0 && hungry < 0) // breed
         {
             if (Physics.Raycast(transform.position, foodFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, foodFish[0].transform.position - transform.position, Color.green);
@@ -158,7 +163,7 @@ public class predatorFish : MonoBehaviour
                             myPlayer = myMouth.collider.GetComponent<predatorFish>().myPlayer;
                             myPlayer.GetComponent<SpringJoint>().connectedBody = myRB;
                         }
-                        Destroy(foodFish[0].transform.parent.gameObject, 0.1f);
+                        Destroy(foodFish[0].gameObject, 0.1f);
                     }
                     else if (myMouth.collider.GetComponent<playerStats>()) // eat player
                     {
@@ -173,11 +178,6 @@ public class predatorFish : MonoBehaviour
                     }
                 }
             }
-        }
-        else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f))
-        {
-            Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            transform.Rotate(Vector3.left, 2);
         }
     }
     private void waterCheck()
@@ -216,7 +216,7 @@ public class predatorFish : MonoBehaviour
                 collision.gameObject.GetComponent<weaponController>().readyshot = true;
                 collision.gameObject.GetComponent<weaponController>().weapon.SetActive(true); ;
             }
-            Destroy(gameObject.transform.parent.gameObject);
+            Destroy(gameObject);
         }
     }
 }
