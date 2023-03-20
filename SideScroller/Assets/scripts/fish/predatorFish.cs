@@ -8,6 +8,12 @@ public class predatorFish : MonoBehaviour
     private RaycastHit myEyes;
     private RaycastHit myMouth;
     private RaycastHit water;
+    [Header("fight, flight, fuck")]
+
+    public string species;
+    public List<string> preyList;
+    public List<string> predatorList;
+
     public GameObject myPlayer;
     public float hungry = 0;
 
@@ -52,7 +58,7 @@ public class predatorFish : MonoBehaviour
             sortFish(); // sorts fish by distance
             turnTransform.position = transform.position; // preps turntransform 
             survivalChoice(); // chooses betwen run, eat or breed and then turns the turntransform 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180); // rotates fish
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 5); // rotates fish
             Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0); 
             transform.position = new Vector3(transform.position.x, transform.position.y, 0); //puts fish back to z0
             myRB.AddForce(stay2D * swimSpeed);
@@ -81,19 +87,15 @@ public class predatorFish : MonoBehaviour
                     if (col.gameObject == gameObject) { }
                     if (col.GetComponent<predatorFish>())
                     {
-                        if (col.gameObject.GetComponent<predatorFish>().FishTier > FishTier)
-                        {
-                            dangerFish.Add(col.gameObject);
-                        }
-                        else if (col.gameObject.GetComponent<predatorFish>().FishTier < FishTier)
-                        {
-
-                            foodFish.Add(col.gameObject);
-                        }
-                        else if (col.gameObject.GetComponent<predatorFish>().FishTier == FishTier)
-                        {
+                        predatorFish script = col.GetComponent<predatorFish>();
+                        foreach (string prey in preyList)
+                            if (prey == script.species)
+                                foodFish.Add(col.gameObject);
+                        foreach (string predator in predatorList)
+                            if (predator == script.species)
+                                dangerFish.Add(col.gameObject);
+                        if (species == script.species)
                             breedFish.Add(col.gameObject);
-                        }
                     }
                     else if (col.GetComponent<playerStats>() && FishTier > 0)
                         foodFish.Add(col.gameObject);
