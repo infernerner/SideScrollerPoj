@@ -23,8 +23,11 @@ public class weaponController : MonoBehaviour
 
     private void OnScroll(InputValue value)
     {
+        if (joint)
+        {
         joint.maxDistance += (value.Get<float>() / 240);
         joint.maxDistance = Mathf.Clamp(joint.maxDistance, 0f, 15f);
+        }
     }
 
     void OnFire()
@@ -47,7 +50,7 @@ public class weaponController : MonoBehaviour
             bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 420f);
             bullet.transform.LookAt(bullet.GetComponent<Rigidbody>().velocity + bullet.transform.position, Vector3.up);
             joint.connectedBody = bullet.GetComponent<Rigidbody>();
-            bullet.GetComponent<bulletPhysics>().myPlayer = gameObject;
+            bullet.GetComponent<harpoonPhysics>().myPlayer = gameObject;
             weapon.SetActive(false);
         }
     }

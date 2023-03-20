@@ -30,6 +30,7 @@ public class cannon : intractControllable
         {
             fireDelay = Time.time + 1;
             GameObject bullet = Instantiate(projectile,cannonObj.transform.position + cannonObj.transform.forward * 4,cannonObj.transform.rotation);
+            bullet.transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y, 0);
             bullet.transform.Rotate(90, 0, 0);
             bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 2000f);
             Destroy(bullet, 2);

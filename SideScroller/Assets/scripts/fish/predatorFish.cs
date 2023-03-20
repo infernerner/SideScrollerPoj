@@ -8,6 +8,7 @@ public class predatorFish : MonoBehaviour
     private RaycastHit myEyes;
     private RaycastHit myMouth;
     private RaycastHit water;
+    public GameObject myPlayer;
     public float hungry = 0;
 
     public int FishTier = 1;
@@ -145,13 +146,19 @@ public class predatorFish : MonoBehaviour
             {
                 if (myMouth.collider.gameObject == foodFish[0].gameObject)
                 {
-                    if (myMouth.collider.GetComponent<predatorFish>())
+                    if (myMouth.collider.GetComponent<predatorFish>()) // eat fish
                     {
                         hungry += 30 * (myMouth.collider.GetComponent<predatorFish>().FishTier + 1);
                         myRB.AddForce(transform.forward * swimSpeed * 10f);
+                        if (myMouth.collider.GetComponent<predatorFish>().harpooned)
+                        {
+                            harpooned = true;
+                            myPlayer = myMouth.collider.GetComponent<predatorFish>().myPlayer;
+                            myPlayer.GetComponent<SpringJoint>().connectedBody = myRB;
+                        }
                         Destroy(foodFish[0].transform.parent.gameObject, 0.1f);
                     }
-                    else if (myMouth.collider.GetComponent<playerStats>())
+                    else if (myMouth.collider.GetComponent<playerStats>()) // eat player
                     {
                         var stats = myMouth.collider.GetComponent<playerStats>();
                         if (stats.invulnerable < Time.time)
