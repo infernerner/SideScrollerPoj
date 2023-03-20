@@ -24,6 +24,7 @@ public class intractControllable : MonoBehaviour
         intractLock = false;
         myPlayer.GetComponent<PlayerInput>().enabled = true;
         myPlayer.GetComponent<Rigidbody>().isKinematic = false;
+        myPlayer.GetComponent<Collider>().enabled = true;
         myPlayer.transform.parent = null;
         myPI.enabled = false;
     }

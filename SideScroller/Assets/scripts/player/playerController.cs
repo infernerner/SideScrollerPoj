@@ -44,6 +44,7 @@ public class playerController : MonoBehaviour
                 transform.parent = interactRay.collider.transform.parent;
                 myPI.enabled = false;
                 myRB.isKinematic = true;
+                myCC.enabled = false;
                 GameObject temp = interactRay.collider.transform.parent.gameObject;
                 temp.GetComponent<intractControllable>().myPlayer = gameObject;
                 temp.GetComponent<intractControllable>().intractLock = true;
