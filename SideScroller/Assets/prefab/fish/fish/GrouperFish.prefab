@@ -57,13 +57,13 @@ MonoBehaviour:
   hungry: -30
   FishTier: 0
   swimSpeed: 10
-  turnSpeed: 1
+  turnSpeed: 10
   sight: 5
   prefab: {fileID: 3651172370355423743}
-  turnTransform: {fileID: 3071025618304044311}
   dead: 0
   inWater: 1
   harpooned: 0
+  direction: {x: 0, y: 0, z: 0, w: 0}
 --- !u!54 &3909650194327757568
 Rigidbody:
   m_ObjectHideFlags: 0

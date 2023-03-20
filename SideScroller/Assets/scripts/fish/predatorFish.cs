@@ -19,10 +19,9 @@ public class predatorFish : MonoBehaviour
 
     public int FishTier = 1;
     public float swimSpeed = 10;
-    public float turnSpeed = 1;
+    public float turnSpeed = 10;
     public float sight = 5;
     public GameObject prefab;
-    public Transform turnTransform;
     private Collider[] unfish;
     private List<GameObject> dangerFish;
     private List<GameObject> foodFish;
@@ -31,6 +30,8 @@ public class predatorFish : MonoBehaviour
     public bool dead = false;
     public bool inWater = true;
     public bool harpooned = false;
+
+    public Quaternion direction;
 
     private void Start()
     {
@@ -56,9 +57,8 @@ public class predatorFish : MonoBehaviour
         {
             fishSight(); // sees all fish within sight that are not blocked by a wall
             sortFish(); // sorts fish by distance
-            turnTransform.position = transform.position; // preps turntransform 
             survivalChoice(); // chooses betwen run, eat or breed and then turns the turntransform 
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 5); // rotates fish
+            transform.rotation = Quaternion.Lerp(transform.rotation, direction, Time.fixedDeltaTime * 0.1f * turnSpeed); // rotates fish
             Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0); 
             transform.position = new Vector3(transform.position.x, transform.position.y, 0); //puts fish back to z0
             myRB.AddForce(stay2D * swimSpeed);
@@ -104,7 +104,6 @@ public class predatorFish : MonoBehaviour
                     Debug.DrawRay(transform.position, col.transform.position - transform.position, Color.white);
             }
         }
-        turnTransform.position = transform.position;
     }
     private void sortFish()
     {
@@ -118,15 +117,16 @@ public class predatorFish : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, dangerFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, dangerFish[0].transform.position - transform.position, Color.red);
-            turnTransform.LookAt(dangerFish[0].transform, Vector3.up);
-            turnTransform.Rotate(Vector3.up, 180f);
 
+            direction = Quaternion.LookRotation(transform.position - dangerFish[0].transform.position,Vector3.up);
         }
         else if (breedFish.Count > 0 && hungry > 0)
         {
             if (Physics.Raycast(transform.position, breedFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, breedFish[0].transform.position - transform.position, Color.yellow);
-            turnTransform.LookAt(breedFish[0].transform, Vector3.up);
+
+           direction = Quaternion.LookRotation(breedFish[0].transform.position - transform.position,Vector3.up);
+
             if (Physics.Raycast(transform.position, transform.forward, out myMouth, 1f))
             {
                 if (myMouth.collider.gameObject == breedFish[0].gameObject && breedFish[0].GetComponent<predatorFish>().hungry > 0)
@@ -143,7 +143,7 @@ public class predatorFish : MonoBehaviour
         {
             if (Physics.Raycast(transform.position, foodFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, foodFish[0].transform.position - transform.position, Color.green);
-            turnTransform.LookAt(foodFish[0].transform, Vector3.up);
+            direction = Quaternion.LookRotation(foodFish[0].transform.position - transform.position, Vector3.up);
             if (Physics.Raycast(transform.position, transform.forward, out myMouth, 1.5f))
             {
                 if (myMouth.collider.gameObject == foodFish[0].gameObject)
@@ -177,7 +177,7 @@ public class predatorFish : MonoBehaviour
         else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f))
         {
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            turnTransform.Rotate(Vector3.left, 2);
+            transform.Rotate(Vector3.left, 2);
         }
     }
     private void waterCheck()
@@ -186,8 +186,8 @@ public class predatorFish : MonoBehaviour
         if (water.collider == null)
         {
             inWater = false;
-            turnTransform.forward *= -1;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
+            transform.forward *= -1;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation, 180);
             Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
             myRB.AddForce(stay2D * swimSpeed);
             transform.position += stay2D;
@@ -196,8 +196,8 @@ public class predatorFish : MonoBehaviour
         else if (water.collider.tag != "Water")
         {
             inWater = false;
-            turnTransform.forward *= -1;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, turnTransform.rotation, 180);
+            transform.forward *= -1;
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation, 180);
             Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
             myRB.AddForce(stay2D * swimSpeed);
             transform.position += stay2D;
