@@ -18,7 +18,6 @@ public class weaponController : MonoBehaviour
 
     private void Start()
     {
-        joint = GetComponent<SpringJoint>();
         input = GetComponent<PlayerInput>();
     }
 
@@ -32,7 +31,16 @@ public class weaponController : MonoBehaviour
     {
         if (readyshot)
         {
-            joint.maxDistance = 8f;
+            if (!joint)
+            {
+                joint = gameObject.AddComponent<SpringJoint>();
+                joint.autoConfigureConnectedAnchor = false;
+                joint.connectedMassScale = 1000;
+                joint.enableCollision = true;
+                joint.spring = 100;
+                joint.damper = 40;
+            }
+                joint.maxDistance = 8f;
             readyshot = false;
             GameObject bullet = Instantiate(instance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
             bullet.transform.Rotate(90, 0, 0);
@@ -40,7 +48,6 @@ public class weaponController : MonoBehaviour
             bullet.transform.LookAt(bullet.GetComponent<Rigidbody>().velocity + bullet.transform.position, Vector3.up);
             joint.connectedBody = bullet.GetComponent<Rigidbody>();
             bullet.GetComponent<bulletPhysics>().myPlayer = gameObject;
-
             weapon.SetActive(false);
         }
     }
