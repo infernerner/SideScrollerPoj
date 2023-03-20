@@ -1637,7 +1637,6 @@ GameObject:
   - component: {fileID: 868591200}
   - component: {fileID: 868591199}
   - component: {fileID: 868591198}
-  - component: {fileID: 868591208}
   - component: {fileID: 868591207}
   - component: {fileID: 868591206}
   - component: {fileID: 868591204}
@@ -1880,30 +1879,6 @@ MonoBehaviour:
   instance: {fileID: 4556738051865217160, guid: c78d489415f691b4eb0db58fceeb1196, type: 3}
   readyshot: 1
   pointerOffset: {x: 0, y: 0, z: 0}
---- !u!145 &868591208
-SpringJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 868591197}
-  m_ConnectedBody: {fileID: 0}
-  m_ConnectedArticulationBody: {fileID: 0}
-  m_Anchor: {x: 0, y: 0, z: 0}
-  m_AutoConfigureConnectedAnchor: 0
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
-  serializedVersion: 2
-  m_Spring: 100
-  m_Damper: 40
-  m_MinDistance: 0
-  m_MaxDistance: 8
-  m_Tolerance: 0.025
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 1
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1000
 --- !u!224 &911562988 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1692005494, guid: 377a3199ab75de842bf039ecaaf6063f, type: 3}
