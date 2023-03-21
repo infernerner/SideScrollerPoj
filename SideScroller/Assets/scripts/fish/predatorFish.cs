@@ -115,7 +115,13 @@ public class predatorFish : MonoBehaviour
     {
         if (dangerFish.Count > 0) // avoid predator
         {
-            if (Physics.Raycast(transform.position, dangerFish[0].transform.position - transform.position, out myEyes))
+            if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles
+            {
+                Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
+                transform.Rotate(-Vector3.right * Time.fixedDeltaTime * 200);
+                direction = transform.rotation;
+            }
+            else if (Physics.Raycast(transform.position, dangerFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, dangerFish[0].transform.position - transform.position, Color.red);
 
             direction = Quaternion.LookRotation(transform.position - dangerFish[0].transform.position,Vector3.up);
@@ -173,11 +179,12 @@ public class predatorFish : MonoBehaviour
                     }
                 }
             }
-        } else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles (does not work)
+        }
+        else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles
         {
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            transform.Rotate(Vector3.right * Time.fixedDeltaTime * 200);
-            direction = Quaternion.LookRotation(transform.forward, Vector3.up);
+            transform.Rotate(-Vector3.right * Time.fixedDeltaTime * 200);
+            direction = transform.rotation;
         }
     }
     private void waterCheck()
@@ -187,7 +194,7 @@ public class predatorFish : MonoBehaviour
         {
             inWater = false;
             transform.forward *= -1;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation, 180);
+            direction = transform.rotation;
             Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
             myRB.AddForce(stay2D * swimSpeed);
             transform.position += stay2D;
@@ -197,7 +204,7 @@ public class predatorFish : MonoBehaviour
         {
             inWater = false;
             transform.forward *= -1;
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, transform.rotation, 180);
+            direction = transform.rotation;
             Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
             myRB.AddForce(stay2D * swimSpeed);
             transform.position += stay2D;
