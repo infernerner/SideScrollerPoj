@@ -113,13 +113,7 @@ public class predatorFish : MonoBehaviour
     }
     private void survivalChoice()
     {
-        if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles (does not work)
-        {
-            Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            //direction = Quaternion.LookRotation(transform.forward , Vector3.up);
-            //direction.
-        }
-        else if (dangerFish.Count > 0) // avoid predator
+        if (dangerFish.Count > 0) // avoid predator
         {
             if (Physics.Raycast(transform.position, dangerFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, dangerFish[0].transform.position - transform.position, Color.red);
@@ -179,6 +173,11 @@ public class predatorFish : MonoBehaviour
                     }
                 }
             }
+        } else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles (does not work)
+        {
+            Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
+            transform.Rotate(Vector3.right * Time.fixedDeltaTime * 200);
+            direction = Quaternion.LookRotation(transform.forward, Vector3.up);
         }
     }
     private void waterCheck()
