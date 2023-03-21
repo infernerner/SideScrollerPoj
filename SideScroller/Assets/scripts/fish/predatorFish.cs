@@ -116,7 +116,8 @@ public class predatorFish : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles (does not work)
         {
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            direction = Quaternion.LookRotation(Vector3.up + transform.right, Vector3.up);
+            //direction = Quaternion.LookRotation(transform.forward , Vector3.up);
+            //direction.
         }
         else if (dangerFish.Count > 0) // avoid predator
         {
