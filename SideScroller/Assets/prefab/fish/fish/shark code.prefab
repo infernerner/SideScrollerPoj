@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae2010ca2da8cfe4daad85140e7e224a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoLoot: {fileID: 11400000, guid: f9299f073b19bfa4488b201c06ed48a1, type: 2}
   species: shark
   preyList:
   - {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}

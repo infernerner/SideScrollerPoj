@@ -1771,7 +1771,8 @@ MonoBehaviour:
   health: 3
   invulnerable: 0
   invulnerableTime: 2
-  bag: []
+  inventory:
+    Inventory: []
 --- !u!114 &868591207
 MonoBehaviour:
   m_ObjectHideFlags: 0

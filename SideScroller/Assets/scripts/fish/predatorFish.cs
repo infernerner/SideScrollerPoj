@@ -10,6 +10,7 @@ public class predatorFish : MonoBehaviour
     private RaycastHit water;
     [Header("fight, flight, fuck")]
 
+    public SO_Item SoLoot;
     public string species;
     public List<predatorFish> preyList;
     public List<predatorFish> predatorList;
@@ -212,24 +213,6 @@ public class predatorFish : MonoBehaviour
         else if (water.collider.tag == "Water")
         {
             inWater = true;
-        }
-    }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player" && dead)
-        {
-            if (harpooned)
-            {
-                collision.gameObject.GetComponent<weaponController>().readyshot = true;
-                collision.gameObject.GetComponent<weaponController>().weapon.SetActive(true); ;
-            }
-            var bag = collision.gameObject.GetComponent<playerStats>().bag;
-            foreach (var inventory in bag)
-            {
-                if (gameObject == inventory.item)
-                    inventory.amount++;
-            }
-            Destroy(gameObject);
         }
     }
 }

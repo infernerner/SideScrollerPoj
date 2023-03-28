@@ -8,14 +8,26 @@ public class playerStats : MonoBehaviour
     public float health = 3f;
     public float invulnerable = 0;
     public float invulnerableTime = 2;
-    public List<inventory> bag;
+    public SO_Item_Inventory inventory;
 
-    [System.Serializable]
-    public class inventory
+    private void OnCollisionEnter(Collision collision)
     {
-        public GameObject item;
-        public float amount; 
+        if (collision.gameObject.GetComponent<predatorFish>())
+        {
+            var fish = collision.gameObject.GetComponent<predatorFish>();
+            if (fish.dead == true)
+            {
+                inventory.addItem(fish.SoLoot, 1);
+                if (fish.harpooned == true)
+                {
+                    GetComponent<weaponController>().readyshot = true;
+                    GetComponent<weaponController>().weapon.SetActive(true);
+                }
+                Destroy(collision.gameObject);
+            }
+        }
     }
+
     private void FixedUpdate()
     {
         if (health < 0f)
