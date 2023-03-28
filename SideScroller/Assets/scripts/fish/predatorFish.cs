@@ -223,6 +223,12 @@ public class predatorFish : MonoBehaviour
                 collision.gameObject.GetComponent<weaponController>().readyshot = true;
                 collision.gameObject.GetComponent<weaponController>().weapon.SetActive(true); ;
             }
+            var bag = collision.gameObject.GetComponent<playerStats>().bag;
+            foreach (var inventory in bag)
+            {
+                if (gameObject == inventory.item)
+                    inventory.amount++;
+            }
             Destroy(gameObject);
         }
     }

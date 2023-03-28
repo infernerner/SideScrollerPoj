@@ -44,7 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8120e38610ccf8840a7d5f682093472f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inWater: 0
   floaters: 2
+  waterList: []
 --- !u!1 &5301479834403039875
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +184,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8120e38610ccf8840a7d5f682093472f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inWater: 0
   floaters: 2
+  waterList: []
 --- !u!1001 &5998014617542907047
 PrefabInstance:
   m_ObjectHideFlags: 0

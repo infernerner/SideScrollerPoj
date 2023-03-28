@@ -22,12 +22,7 @@ public class fishBuoyancy : MonoBehaviour
         Debug.DrawRay(transform.position, Vector3.forward *5);
         Debug.Log(waterCheck.Length);
         inWater = 0;
-        if (waterCheck.Length > -1)
-        {
-            inWater = 0;
-            Debug.Log("failed");
-        }
-        else
+        if (waterCheck.Length > 0)
             foreach (RaycastHit hit in waterCheck)
             {
                 waterList.Add(hit.collider.gameObject);
