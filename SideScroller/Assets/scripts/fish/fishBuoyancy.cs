@@ -8,6 +8,7 @@ public class fishBuoyancy : MonoBehaviour
     public int inWater = 0;
     public int floaters = 1;
     public RaycastHit[] waterCheck;
+    public List<GameObject> waterList = new List<GameObject>();
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class fishBuoyancy : MonoBehaviour
 
     public void dead()
     {
+        waterList.Clear();
         waterCheck = Physics.RaycastAll(transform.position, Vector3.forward , 5);
         Debug.DrawRay(transform.position, Vector3.forward *5);
         Debug.Log(waterCheck.Length);
@@ -28,6 +30,7 @@ public class fishBuoyancy : MonoBehaviour
         else
             foreach (RaycastHit hit in waterCheck)
             {
+                waterList.Add(hit.collider.gameObject);
                 Debug.Log(hit.collider.name);
                 Debug.DrawRay(transform.position, Vector3.forward * hit.distance);
                 if (hit.collider.tag == "Water") inWater = +1;
