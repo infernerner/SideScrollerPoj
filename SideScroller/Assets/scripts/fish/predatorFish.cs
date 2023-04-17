@@ -8,6 +8,7 @@ public class predatorFish : MonoBehaviour
     private RaycastHit myEyes;
     private RaycastHit myMouth;
     private RaycastHit water;
+    LayerMask waterMask;
     [Header("fight, flight, fuck")]
 
     public SO_Item SoLoot;
@@ -36,6 +37,7 @@ public class predatorFish : MonoBehaviour
 
     private void Start()
     {
+        waterMask = LayerMask.GetMask("Water");
         GameObject[] gameObjects = { gameObject };
         myRB = GetComponent<Rigidbody>();
         dangerFish = new List<GameObject>(gameObjects);
@@ -52,7 +54,6 @@ public class predatorFish : MonoBehaviour
             else
                 hungry += Time.deltaTime;
             if (hungry <= -300) dead = true;
-            waterCheck(); // checks if its in or out of water
         }
         if (!dead && inWater)
         {
@@ -116,6 +117,7 @@ public class predatorFish : MonoBehaviour
     {
         if (dangerFish.Count > 0) // avoid predator
         {
+            Debug.Log("danger");
             if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles
             {
                 Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
@@ -129,6 +131,7 @@ public class predatorFish : MonoBehaviour
         }
         else if (breedFish.Count > 0 && hungry > 0) // hunt food
         {
+            Debug.Log("breed");
             if (Physics.Raycast(transform.position, breedFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, breedFish[0].transform.position - transform.position, Color.yellow);
 
@@ -148,6 +151,7 @@ public class predatorFish : MonoBehaviour
         }
         else if (foodFish.Count > 0 && hungry < 0) // breed
         {
+            Debug.Log("food");
             if (Physics.Raycast(transform.position, foodFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, foodFish[0].transform.position - transform.position, Color.green);
             direction = Quaternion.LookRotation(foodFish[0].transform.position - transform.position, Vector3.up);
@@ -183,36 +187,26 @@ public class predatorFish : MonoBehaviour
         }
         else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles
         {
+            Debug.Log("wall");
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
             transform.Rotate(-Vector3.right * Time.fixedDeltaTime * 200);
             direction = transform.rotation;
         }
     }
-    private void waterCheck()
+    
+    private void OnTriggerEnter(Collider other)
     {
-        Physics.Raycast(transform.position, Vector3.forward, out water);
-        if (water.collider == null)
-        {
-            inWater = false;
-            transform.forward *= -1;
-            direction = transform.rotation;
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-            myRB.AddForce(stay2D * swimSpeed);
-            transform.position += stay2D;
-
-        }
-        else if (water.collider.tag != "Water")
-        {
-            inWater = false;
-            transform.forward *= -1;
-            direction = transform.rotation;
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-            myRB.AddForce(stay2D * swimSpeed);
-            transform.position += stay2D;
-        }
-        else if (water.collider.tag == "Water")
-        {
-            inWater = true;
-        }
+        inWater = true;
+        myRB.useGravity = false;
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        myRB.useGravity = true;
+        inWater = false;
+        transform.forward *= -1;
+        direction = transform.rotation;
+        Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+        myRB.AddForce(stay2D * swimSpeed);
+        transform.position += stay2D;
     }
 }

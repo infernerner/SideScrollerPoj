@@ -1984,7 +1984,8 @@ namespace Water2DTool {
         private void ApplyPhysicsBasedBuoyantForce(int oIndex)
         {
             if (!ColliderExists(oIndex)) return;
-            if (floatingObjects[oIndex].transform.GetComponent<predatorFish>() != null) return;
+            if (floatingObjects[oIndex].transform.GetComponent<predatorFish>() != null)
+                if (floatingObjects[oIndex].transform.GetComponent<predatorFish>().dead == false) return;
             if (floatingObjects[oIndex].transform.GetComponent<landController>() != null) return;
 
             // The global position of the closest vertex to the center of the collider.

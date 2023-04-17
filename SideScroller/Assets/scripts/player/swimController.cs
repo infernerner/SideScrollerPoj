@@ -19,27 +19,19 @@ public class swimController : playerController
     {
         if (moveVector != Vector3.zero)
         {
-           //myRB.AddTorque(0, 0, moveVector.x * -120 * Time.deltaTime);
-           //myRB.AddRelativeForce(0, moveVector.y * 300 * Time.deltaTime, 0);
+            //myRB.AddTorque(0, 0, moveVector.x * -120 * Time.deltaTime);
+            //myRB.AddRelativeForce(0, moveVector.y * 300 * Time.deltaTime, 0);
 
-                myRB.AddForce(moveVector * 300 * Time.deltaTime);
-                transform.LookAt(transform.position + moveVector);
-                transform.Rotate(90, 0, 0);
-            transform.position = new Vector3 (transform.position.x, transform.position.y,0);
-            
+            myRB.AddForce(moveVector * 300 * Time.deltaTime);
+            transform.LookAt(transform.position + moveVector);
+            transform.Rotate(90, 0, 0);
+            transform.position = new Vector3 (transform.position.x, transform.position.y,0);  
         }
         InteractText();
-        Physics.Raycast(transform.position, Vector3.forward, out interactRay, 1);
-        if (interactRay.collider == null)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            myRB.drag = 0f;
-            myRB.useGravity = true;
-            myRB.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionZ;
-            myLC.enabled = true;
-            this.enabled = false;
-        }
-        else if (interactRay.collider.tag != "Water")
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Water")
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
             myRB.drag = 0f;

@@ -54,18 +54,17 @@ public class landController : playerController
         {
             myRB.useGravity = true;
         }
+    }
 
-        Physics.Raycast(transform.position, Vector3.forward, out interactRay, 1);
-        if (interactRay.collider != null)
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Water")
         {
-            if (interactRay.collider.tag == "Water")
-            {
-                myRB.drag = 1f;
-                myRB.useGravity = false;
-                myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
-                mySC.enabled = true;
-                this.enabled = false;
-            }
+            myRB.drag = 1f;
+            myRB.useGravity = false;
+            myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
+            mySC.enabled = true;
+            this.enabled = false;
         }
     }
 }
