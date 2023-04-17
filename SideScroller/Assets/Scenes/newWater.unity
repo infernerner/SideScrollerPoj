@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1135,6 +1139,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1547,6 +1555,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -2429,6 +2441,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -2786,6 +2802,10 @@ PrefabInstance:
       propertyPath: dead
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -2843,6 +2863,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -2900,6 +2924,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3414438280863861101, guid: 443e4f8740500694695f723873589542, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 8097689080691820383, guid: 443e4f8740500694695f723873589542, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -3156,6 +3184,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311368603005370177, guid: 814fdb4a30705bb489dc172b12168dbf, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 5301479834403039875, guid: 814fdb4a30705bb489dc172b12168dbf, type: 3}
       propertyPath: m_Name
       value: shark code
@@ -3584,6 +3616,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1311368603005370177, guid: 814fdb4a30705bb489dc172b12168dbf, type: 3}
+      propertyPath: waterMask.m_Bits
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 5301479834403039875, guid: 814fdb4a30705bb489dc172b12168dbf, type: 3}
       propertyPath: m_Name
       value: shark code (1)

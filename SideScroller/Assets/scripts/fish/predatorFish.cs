@@ -8,7 +8,7 @@ public class predatorFish : MonoBehaviour
     private RaycastHit myEyes;
     private RaycastHit myMouth;
     private RaycastHit water;
-    LayerMask waterMask;
+    public LayerMask waterMask;
     [Header("fight, flight, fuck")]
 
     public SO_Item SoLoot;
@@ -115,6 +115,7 @@ public class predatorFish : MonoBehaviour
     }
     private void survivalChoice()
     {
+
         if (dangerFish.Count > 0) // avoid predator
         {
             Debug.Log("danger");
@@ -185,7 +186,7 @@ public class predatorFish : MonoBehaviour
                 }
             }
         }
-        else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f)) // avoid obstacles
+        else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f, ~waterMask)) // avoid obstacles
         {
             Debug.Log("wall");
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
