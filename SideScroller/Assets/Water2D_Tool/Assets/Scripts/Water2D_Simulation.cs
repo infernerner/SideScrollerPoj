@@ -987,6 +987,7 @@ namespace Water2DTool {
         /// </summary>
         private void Buoyancy()
         {
+
             if (buoyantForceMode == Water2D_BuoyantForceMode.PhysicsBased && waterType == Water2D_Type.Dynamic)
                 PhysicsBasedBuoyantForce();
 
@@ -1983,6 +1984,8 @@ namespace Water2DTool {
         private void ApplyPhysicsBasedBuoyantForce(int oIndex)
         {
             if (!ColliderExists(oIndex)) return;
+            if (floatingObjects[oIndex].transform.GetComponent<predatorFish>() != null) return;
+            if (floatingObjects[oIndex].transform.GetComponent<landController>() != null) return;
 
             // The global position of the closest vertex to the center of the collider.
             Vector3 vertWorldPos;
