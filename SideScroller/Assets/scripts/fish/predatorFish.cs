@@ -8,7 +8,7 @@ public class predatorFish : MonoBehaviour
     private RaycastHit myEyes;
     private RaycastHit myMouth;
     private RaycastHit water;
-    public LayerMask waterMask;
+    private LayerMask waterMask;
     [Header("fight, flight, fuck")]
 
     public SO_Item SoLoot;

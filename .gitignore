@@ -58,3 +58,11 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+SideScroller/Assets/VolumetricFog/Demos/Demos.unitypackage.meta
+SideScroller/Assets/VolumetricFog/Demos/StandardAssets.unitypackage.meta
+SideScroller/Assets/VolumetricFog/Extra/DynamicFog/Demos/Demos.unitypackage.meta
+SideScroller/Assets/VolumetricFog/Extra/DynamicFog/PostProcessingSupport/PostProcessingExtensions.unitypackage.meta
+SideScroller/Assets/VolumetricFogBundle/Builtin/VolumetricAndDynamicFog_Builtin.unitypackage.meta
+SideScroller/Assets/VolumetricFogBundle/URP/VolumetricFog2_URP.unitypackage.meta
+SideScroller/Assets/Water2D_Tool/Assets/SRP/Water2DTool_LWRP.unitypackage.meta
+SideScroller/Assets/Water2D_Tool/Assets/SRP/Water2DTool_URP.unitypackage.meta
