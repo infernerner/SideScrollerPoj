@@ -18,21 +18,23 @@ public class bulletPhysics : MonoBehaviour
         if (myRB.velocity.magnitude > 2f)
             transform.LookAt(myRB.velocity + transform.position, Vector3.up);
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        Physics.Raycast(transform.position, Vector3.forward, out water);
-        if (water.collider == null)
-        {
-            myRB.drag = 1f;
-            myRB.angularDrag = 1f;
-        }
-        else if (water.collider.tag != "Water")
-        {
-            myRB.drag = 1f;
-            myRB.angularDrag = 1f;
-        }
-        else if (water.collider.tag == "Water")
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Water")
         {
             myRB.drag = 2f;
             myRB.angularDrag = 2f;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Water")
+        {
+            myRB.drag = 1f;
+            myRB.angularDrag = 1f;
         }
     }
 

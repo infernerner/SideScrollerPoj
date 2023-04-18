@@ -49,7 +49,7 @@ Material:
     - _HeightOffset: 0
     - _MeshHeight: 3.736259
     - _Metallic: 0
-    - _Opacity: 0.6
+    - _Opacity: 0.1
     - _PixelsPerUnit: 100
     - _WaterDepth: 1.27
     - _WaterHeight: 10.219748

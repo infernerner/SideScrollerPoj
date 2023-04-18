@@ -1987,6 +1987,8 @@ namespace Water2DTool {
             if (floatingObjects[oIndex].transform.GetComponent<predatorFish>() != null)
                 if (floatingObjects[oIndex].transform.GetComponent<predatorFish>().dead == false) return;
             if (floatingObjects[oIndex].transform.GetComponent<landController>() != null) return;
+            if (floatingObjects[oIndex].transform.GetComponent<harpoonPhysics>() != null) return;
+            if (floatingObjects[oIndex].transform.GetComponent<bulletPhysics>() != null) return;
 
             // The global position of the closest vertex to the center of the collider.
             Vector3 vertWorldPos;
