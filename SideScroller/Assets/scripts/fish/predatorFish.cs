@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class predatorFish : MonoBehaviour
 {
     private Rigidbody myRB;
     private RaycastHit myEyes;
     private RaycastHit myMouth;
-    private RaycastHit water;
     private LayerMask waterMask;
     [Header("fight, flight, fuck")]
 
@@ -198,11 +198,17 @@ public class predatorFish : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         inWater = true;
-        myRB.useGravity = false;
+        if (myRB)
+            myRB.useGravity = false;
+        else
+            myRB = GetComponent<Rigidbody>();
     }
     private void OnTriggerExit(Collider other)
     {
-        myRB.useGravity = true;
+        if (myRB)
+            myRB.useGravity = true;
+        else
+            myRB = GetComponent<Rigidbody>();
         inWater = false;
         transform.forward *= -1;
         direction = transform.rotation;
