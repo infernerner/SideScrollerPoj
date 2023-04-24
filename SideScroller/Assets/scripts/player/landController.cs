@@ -13,6 +13,10 @@ public class landController : playerController
     public int jumps = 2;
     public float jumpCooldown;
 
+    private float startMoveTime;
+    private float currentMoveTime;
+    
+
     void Start()
     {
         mySC = GetComponent<swimController>();
@@ -27,14 +31,18 @@ public class landController : playerController
         if (moveVector.x != 0)
         {
             transform.position += transform.right * moveVector.x * Time.deltaTime * moveSpeed;
-            animator.SetBool("move", true);
             if (moveVector.x > 0)
-            myAvatar.transform.localScale = new Vector3( 1f,1f,-1f);
+                myAvatar.transform.localScale = new Vector3( 1f,1f,-1f);
             if (moveVector.x < 0)
                 myAvatar.transform.localScale = new Vector3(1f, 1f, 1f);
+            currentMoveTime = Time.time;
+            animator.SetFloat("Blend", Mathf.Clamp((currentMoveTime - startMoveTime) * 0.5f, 0, 1));
         }
         else
-            animator.SetBool("move", false);
+        {
+            animator.SetFloat("Blend", 0);
+            startMoveTime = Time.time;
+        }
 
         if (Physics.Raycast(transform.position, -transform.up, out groundRay, 1))
         {

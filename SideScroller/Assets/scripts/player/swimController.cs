@@ -22,6 +22,7 @@ public class swimController : playerController
             //myRB.AddTorque(0, 0, moveVector.x * -120 * Time.deltaTime);
             //myRB.AddRelativeForce(0, moveVector.y * 300 * Time.deltaTime, 0);
 
+
             myRB.AddForce(moveVector * 300 * Time.deltaTime);
             transform.LookAt(transform.position + moveVector);
             transform.Rotate(90, 0, 0);
