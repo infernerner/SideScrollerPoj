@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Animations;
 
 public class playerController : MonoBehaviour
 {
+    public Animator animator;
+    public GameObject myAvatar;
     protected Rigidbody myRB;
     protected CapsuleCollider myCC;
     protected PlayerInput myPI;

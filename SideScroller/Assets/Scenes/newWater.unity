@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &10430577 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4568702075857430217, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
+  m_PrefabInstance: {fileID: 20484176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &12834945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,6 +220,10 @@ PrefabInstance:
       propertyPath: m_GlobalChatCanvas
       value: 
       objectReference: {fileID: 1907107894}
+    - target: {fileID: 6925522770815801257, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
+      propertyPath: myAvatar
+      value: 
+      objectReference: {fileID: 10430577}
     - target: {fileID: 6925522770815801258, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
       propertyPath: myCamera
       value: 
@@ -225,11 +234,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6925522770815801261, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -48.373707
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6925522770815801261, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.343282
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6925522770815801261, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
       propertyPath: m_LocalPosition.z
@@ -263,6 +272,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6925522770815801262, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
+      propertyPath: myAvatar
+      value: 
+      objectReference: {fileID: 10430577}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29193a40a1dea8d44b4acd288146b6d0, type: 3}
 --- !u!1001 &49862393

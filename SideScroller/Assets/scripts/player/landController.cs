@@ -24,7 +24,17 @@ public class landController : playerController
     void FixedUpdate()
     {
         InteractText();
-        transform.position += transform.right * moveVector.x * Time.deltaTime * moveSpeed;
+        if (moveVector.x != 0)
+        {
+            transform.position += transform.right * moveVector.x * Time.deltaTime * moveSpeed;
+            animator.SetBool("move", true);
+            if (moveVector.x > 0)
+            myAvatar.transform.localScale = new Vector3( 1f,1f,-1f);
+            if (moveVector.x < 0)
+                myAvatar.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        else
+            animator.SetBool("move", false);
 
         if (Physics.Raycast(transform.position, -transform.up, out groundRay, 1))
         {
@@ -34,6 +44,7 @@ public class landController : playerController
 
         if (jump > 0 && jumpCooldown < 0 && jumps > 0)
         {
+            animator.SetTrigger("jump");
             jumps--;
             jumpCooldown = 1;
             myRB.AddForce(transform.up * jump * Time.deltaTime * jumpSpeed);
