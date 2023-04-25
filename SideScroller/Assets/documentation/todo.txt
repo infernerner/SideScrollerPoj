@@ -1,3 +1,0 @@
-animation til sam (lukas)
-nyt spyd kode skal laves for det nye spyd
-fisk skal kun roter i z axien (eric)
