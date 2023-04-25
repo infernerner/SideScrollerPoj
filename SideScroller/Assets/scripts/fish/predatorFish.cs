@@ -188,12 +188,12 @@ public class predatorFish : MonoBehaviour
         }
         else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f, ~waterMask)) /// avoid obstacles
         {
-            Debug.Log("wall");
+            //Debug.Log("wall");
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
             transform.Rotate(-Vector3.right * Time.fixedDeltaTime * 200);
             direction = transform.rotation;
         } else
-        { // idle
+        { /// idle
 
             transform.Rotate(Vector3.right, Mathf.Cos(Time.fixedTime * 1f+ Mathf.PerlinNoise(transform.position.x,transform.position.y))*Time.deltaTime*10f);
             direction = transform.rotation;

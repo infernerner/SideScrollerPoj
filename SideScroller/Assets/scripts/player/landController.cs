@@ -79,6 +79,7 @@ public class landController : playerController
     {
         if (other.tag == "Water")
         {
+            animator.SetBool("inWater", true);
             myRB.drag = 1f;
             myRB.useGravity = false;
             myRB.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezePositionZ;
