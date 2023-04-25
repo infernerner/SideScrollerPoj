@@ -60,9 +60,10 @@ public class predatorFish : MonoBehaviour
             fishSight(); /// sees all fish within sight that are not blocked by a wall
             sortFish(); /// sorts fish by distance
             survivalChoice(); /// chooses betwen run, eat or breed and then turns the turntransform 
-            transform.rotation = Quaternion.Lerp(transform.rotation, direction, Time.fixedDeltaTime * 0.1f * turnSpeed); /// rotates fish
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0); 
+            transform.rotation = Quaternion.Lerp(transform.rotation, direction, Time.fixedDeltaTime * 0.1f * turnSpeed); /// rotates fish   
             transform.position = new Vector3(transform.position.x, transform.position.y, 0); ///puts fish back to z0
+            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+            transform.LookAt(stay2D);
             myRB.AddForce(stay2D * swimSpeed);
 
         }
