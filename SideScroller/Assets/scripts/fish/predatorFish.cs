@@ -220,7 +220,7 @@ public class predatorFish : MonoBehaviour
         transform.forward *= -1;
         direction = transform.rotation;
         Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-        myRB.AddForce(stay2D * swimSpeed);
-        transform.position += stay2D;
+        myRB.AddForce(stay2D * swimSpeed * 10);
+        transform.position += stay2D * 1.5f;
     }
 }
