@@ -37,6 +37,11 @@ public class playerController : MonoBehaviour
         jump = value.Get<float>();
     }
 
+    void OnMelee(InputValue value)
+    {
+        animator.SetTrigger("Melee");
+    }
+
     void OnInteract()
     {
         Physics.Raycast(transform.position, transform.forward, out interactRay, 1);

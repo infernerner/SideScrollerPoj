@@ -79,6 +79,7 @@ public class landController : playerController
     {
         if (other.tag == "Water")
         {
+            myAvatar.transform.localScale = new Vector3(1f, 1f, 1f);
             animator.SetBool("inWater", true);
             myRB.drag = 1f;
             myRB.useGravity = false;
