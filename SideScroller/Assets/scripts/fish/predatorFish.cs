@@ -195,10 +195,10 @@ public class predatorFish : MonoBehaviour
         } else
         { /// idle
 
+            Vector3 stay2D = new Vector3(transform.forward.x + transform.position.x, transform.forward.y + transform.position.y, 0);
+            transform.LookAt(stay2D);
             transform.Rotate(Vector3.right, Mathf.Cos(Time.fixedTime * 1f+ Mathf.PerlinNoise(transform.position.x,transform.position.y))*Time.deltaTime*10f);
             direction = transform.rotation;
-            //Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-            //transform.LookAt(stay2D);
         }
     }
     
