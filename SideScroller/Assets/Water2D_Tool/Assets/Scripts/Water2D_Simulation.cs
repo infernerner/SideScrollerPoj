@@ -1986,6 +1986,8 @@ namespace Water2DTool {
             if (!ColliderExists(oIndex)) return;
             if (floatingObjects[oIndex].transform.GetComponent<predatorFish>() != null)
                 if (floatingObjects[oIndex].transform.GetComponent<predatorFish>().dead == false) return;
+            if (floatingObjects[oIndex].transform.GetComponent<mobyDick>() != null)
+                if (floatingObjects[oIndex].transform.GetComponent<mobyDick>().dead == false) return;
             if (floatingObjects[oIndex].transform.GetComponent<landController>() != null) return;
             if (floatingObjects[oIndex].transform.GetComponent<harpoonPhysics>() != null) return;
             if (floatingObjects[oIndex].transform.GetComponent<bulletPhysics>() != null) return;

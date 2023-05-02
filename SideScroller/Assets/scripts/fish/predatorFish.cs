@@ -204,23 +204,31 @@ public class predatorFish : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        inWater = true;
-        if (myRB)
-            myRB.useGravity = false;
-        else
-            myRB = GetComponent<Rigidbody>();
+        if (other.tag == "Water")
+        {
+            inWater = true;
+            if (myRB)
+                myRB.useGravity = false;
+            else
+                myRB = GetComponent<Rigidbody>();
+            myRB.drag = 5f;
+        }
     }
     private void OnTriggerExit(Collider other)
     {
-        if (myRB)
-            myRB.useGravity = true;
-        else
-            myRB = GetComponent<Rigidbody>();
-        inWater = false;
-        transform.forward *= -1;
-        direction = transform.rotation;
-        Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-        myRB.AddForce(stay2D * swimSpeed * 10);
-        transform.position += stay2D * 1.5f;
+        if (other.tag == "Water")
+        {
+            if (myRB)
+                myRB.useGravity = true;
+            else
+                myRB = GetComponent<Rigidbody>();
+            myRB.drag = 1;
+            inWater = false;
+            transform.forward *= -1;
+            direction = transform.rotation;
+            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+            myRB.AddForce(stay2D * swimSpeed * 10);
+            transform.position += stay2D * 1.5f;
+        }
     }
 }
