@@ -29,11 +29,11 @@ Material:
     - _AlphaClipping: 0.5
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
-    - _WindScale: 2
+    - _WindScale: 0.25
     - _WindSpeed: 3
-    - _WindStrength: 10
+    - _WindStrength: 20
     m_Colors:
-    - _WindDensity: {r: 4, g: 0, b: 0, a: 0}
+    - _WindDensity: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8197933790345848551
 MonoBehaviour:
