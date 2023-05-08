@@ -62,7 +62,7 @@ public class predatorFish : MonoBehaviour
             survivalChoice(); /// chooses betwen run, eat or breed and then turns the turntransform 
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, Time.fixedDeltaTime * 0.1f * turnSpeed); /// rotates fish   
             transform.position = new Vector3(transform.position.x, transform.position.y, 0); ///puts fish back to z0
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
+            Vector3 stay2D = new (transform.forward.x, transform.forward.y, 0);
             myRB.AddForce(stay2D * swimSpeed);
 
         }
@@ -195,7 +195,7 @@ public class predatorFish : MonoBehaviour
         } else
         { /// idle
 
-            Vector3 stay2D = new Vector3(transform.forward.x + transform.position.x, transform.forward.y + transform.position.y, 0);
+            Vector3 stay2D = new (transform.forward.x + transform.position.x, transform.forward.y + transform.position.y, 0);
             transform.LookAt(stay2D);
             transform.Rotate(Vector3.right, Mathf.Cos(Time.fixedTime * 1f+ Mathf.PerlinNoise(transform.position.x,transform.position.y))*Time.deltaTime*10f);
             direction = transform.rotation;

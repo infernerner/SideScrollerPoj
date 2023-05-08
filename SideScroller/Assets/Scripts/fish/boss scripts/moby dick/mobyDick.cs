@@ -9,6 +9,8 @@ public class mobyDick : MonoBehaviour
     public float turn;
     public bool dead;
     public GameObject myPlayer;
+    public Vector3 vectorOutput;
+    public GameObject lookPoint;
 
     private Rigidbody myRB;
 
@@ -23,13 +25,14 @@ public class mobyDick : MonoBehaviour
     void FixedUpdate()
     {
         
-
         charge();
     }
 
     private void charge()
     {
-       
+        vectorOutput = myPlayer.transform.position - transform.position ;
+        transform.LookAt(vectorOutput);
+        lookPoint.transform.position = vectorOutput;
     }
 
     private void move()
@@ -42,7 +45,7 @@ public class mobyDick : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Water")
+        if (other.CompareTag("Water"))
         {
             myRB.drag = 5;
             myRB.useGravity = false;
@@ -52,7 +55,7 @@ public class mobyDick : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Water")
+        if (other.CompareTag("Water"))
         {
             myRB.drag = 1;
             myRB.useGravity = true;

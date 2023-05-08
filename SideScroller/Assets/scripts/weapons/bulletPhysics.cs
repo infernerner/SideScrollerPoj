@@ -5,7 +5,6 @@ using UnityEngine;
 public class bulletPhysics : MonoBehaviour
 {
     private Rigidbody myRB;
-    private RaycastHit water;
 
     private void Start()
     {
@@ -22,7 +21,7 @@ public class bulletPhysics : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Water")
+        if (other.CompareTag("Water"))
         {
             myRB.drag = 2f;
             myRB.angularDrag = 2f;
@@ -31,7 +30,7 @@ public class bulletPhysics : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Water")
+        if (other.CompareTag("Water"))
         {
             myRB.drag = 1f;
             myRB.angularDrag = 1f;
