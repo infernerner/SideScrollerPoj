@@ -35,6 +35,8 @@ public class predatorFish : MonoBehaviour
 
     public Quaternion direction;
 
+    private const float zOffset = 0.5f; // fish might now need to be at z0 in later updates ajust here in that case
+
     private void Start()
     {
         waterMask = LayerMask.GetMask("Water");
@@ -60,9 +62,9 @@ public class predatorFish : MonoBehaviour
             fishSight(); /// sees all fish within sight that are not blocked by a wall
             sortFish(); /// sorts fish by distance
             survivalChoice(); /// chooses betwen run, eat or breed and then turns the turntransform 
-            transform.rotation = Quaternion.Lerp(transform.rotation, direction, Time.fixedDeltaTime * 0.1f * turnSpeed); /// rotates fish   
-            transform.position = new Vector3(transform.position.x, transform.position.y, 0); ///puts fish back to z0
-            Vector3 stay2D = new (transform.forward.x, transform.forward.y, 0);
+            transform.SetPositionAndRotation(new Vector3(transform.position.x, transform.position.y, zOffset) ///puts fish back to z0.5
+                , Quaternion.Lerp(transform.rotation, direction, Time.fixedDeltaTime * 0.1f * turnSpeed)); /// rotates fish
+            Vector3 stay2D = new (transform.forward.x, transform.forward.y, zOffset);
             myRB.AddForce(stay2D * swimSpeed);
 
         }
@@ -96,7 +98,7 @@ public class predatorFish : MonoBehaviour
                         foreach (predatorFish predator in predatorList)
                             if (predator.species == script.species)
                                 dangerFish.Add(col.gameObject);
-                        if (species == script.species)
+                        if (species == script.species && script.hungry >= 0)
                             breedFish.Add(col.gameObject);
                     }
                     else if (col.GetComponent<playerStats>() && FishTier > 0)
@@ -130,9 +132,8 @@ public class predatorFish : MonoBehaviour
 
             direction = Quaternion.LookRotation(transform.position - dangerFish[0].transform.position,Vector3.up);
         }
-        else if (breedFish.Count > 0 && hungry > 0) /// hunt food
+        else if (breedFish.Count > 0 && hungry > 0) /// breed
         {
-            //Debug.Log("breed");
             if (Physics.Raycast(transform.position, breedFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, breedFish[0].transform.position - transform.position, Color.yellow);
 
@@ -150,15 +151,14 @@ public class predatorFish : MonoBehaviour
             }
 
         }
-        else if (foodFish.Count > 0 && hungry < 0) /// breed
+        else if (foodFish.Count > 0 && hungry < 0) /// hunt food
         {
-            //Debug.Log("food");
             if (Physics.Raycast(transform.position, foodFish[0].transform.position - transform.position, out myEyes))
                 Debug.DrawRay(transform.position, foodFish[0].transform.position - transform.position, Color.green);
             direction = Quaternion.LookRotation(foodFish[0].transform.position - transform.position, Vector3.up);
             if (Physics.Raycast(transform.position, transform.forward, out myMouth, 1.5f))
             {
-                if (myMouth.collider.gameObject == foodFish[0].gameObject)
+                if (myMouth.collider.gameObject == foodFish[0])
                 {
                     if (myMouth.collider.GetComponent<predatorFish>()) /// eat fish
                     {
@@ -188,14 +188,13 @@ public class predatorFish : MonoBehaviour
         }
         else if (Physics.Raycast(transform.position, transform.forward, out myEyes, 10f, ~waterMask)) /// avoid obstacles
         {
-            //Debug.Log("wall");
             Debug.DrawRay(transform.position, transform.forward * myEyes.distance, Color.cyan);
-            transform.Rotate(-Vector3.right * Time.fixedDeltaTime * 200);
+            transform.Rotate(200 * Time.fixedDeltaTime * -Vector3.right);
             direction = transform.rotation;
         } else
         { /// idle
 
-            Vector3 stay2D = new (transform.forward.x + transform.position.x, transform.forward.y + transform.position.y, 0);
+            Vector3 stay2D = new (transform.forward.x + transform.position.x, transform.forward.y + transform.position.y, zOffset);
             transform.LookAt(stay2D);
             transform.Rotate(Vector3.right, Mathf.Cos(Time.fixedTime * 1f+ Mathf.PerlinNoise(transform.position.x,transform.position.y))*Time.deltaTime*10f);
             direction = transform.rotation;
@@ -204,7 +203,7 @@ public class predatorFish : MonoBehaviour
     
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Water")
+        if (other.CompareTag("Water"))
         {
             inWater = true;
             if (myRB)
@@ -216,7 +215,7 @@ public class predatorFish : MonoBehaviour
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Water")
+        if (other.CompareTag("Water"))
         {
             if (myRB)
                 myRB.useGravity = true;
@@ -226,8 +225,8 @@ public class predatorFish : MonoBehaviour
             inWater = false;
             transform.forward *= -1;
             direction = transform.rotation;
-            Vector3 stay2D = new Vector3(transform.forward.x, transform.forward.y, 0);
-            myRB.AddForce(stay2D * swimSpeed * 10);
+            Vector3 stay2D = new (transform.forward.x, transform.forward.y, 0);
+            myRB.AddForce(10 * swimSpeed * stay2D);
             transform.position += stay2D * 1.5f;
         }
     }
