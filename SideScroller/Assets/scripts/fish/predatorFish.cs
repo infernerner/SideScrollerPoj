@@ -35,7 +35,7 @@ public class predatorFish : MonoBehaviour
 
     public Quaternion direction;
 
-    private const float zOffset = 0.5f; // fish might now need to be at z0 in later updates ajust here in that case
+    private const float zOffset = -0; // fish might now need to be at z0 in later updates ajust here in that case
 
     private void Start()
     {

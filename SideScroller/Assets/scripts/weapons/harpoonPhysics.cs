@@ -9,6 +9,8 @@ public class harpoonPhysics : MonoBehaviour
     public GameObject myPlayer;
     private Rigidbody myRB;
 
+    private const float zOffset = -0; // fish might now need to be at z0 in later updates ajust here in that case
+
     private void Start()
     {
         myCollider = GetComponent<Collider>();
@@ -20,7 +22,7 @@ public class harpoonPhysics : MonoBehaviour
     {
         if (myRB.velocity.magnitude > 2f)
         transform.LookAt(myRB.velocity + transform.position, Vector3.up);
-        transform.position = new Vector3(transform.position.x, transform.position.y, 0);
+        transform.position = new Vector3(transform.position.x, transform.position.y, zOffset);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -51,9 +51,9 @@ Material:
     - _Opacity: 0.6
     - _PixelsPerUnit: 100
     - _WaterDepth: 1
-    - _WaterHeight: 52.27029
+    - _WaterHeight: 217.82613
     - _WaterLineHeight: 1
-    - _WaterWidth: 112.13624
+    - _WaterWidth: 812.0278
     - _WaveHeightScale: 0.5
     m_Colors:
     - _BaseColor: {r: 0.43106616, g: 0.60046196, b: 0.875, a: 0.829}
