@@ -7,9 +7,12 @@ public class weaponController : MonoBehaviour
 {
     public Camera myCamera;
     public GameObject weapon;
-    public GameObject instance;
+    public GameObject harpoonInstance;
+    public GameObject grenadeInstance;
     public bool readyshot = true;
+
     public int ammo = 1;
+    public List<int> weapons;
 
     public Vector3 pointerOffset;
     private Vector3 renderOffset;
@@ -49,7 +52,7 @@ public class weaponController : MonoBehaviour
                     }
                         joint.maxDistance = 8f;
                     readyshot = false;
-                    GameObject bullet = Instantiate(instance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
+                    GameObject bullet = Instantiate(harpoonInstance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
                     bullet.transform.Rotate(90, 0, 0);
                     bullet.GetComponent<Rigidbody>().AddForce(bullet.transform.up * 420f);
                     bullet.transform.LookAt(bullet.GetComponent<Rigidbody>().velocity + bullet.transform.position, Vector3.up);
@@ -58,7 +61,7 @@ public class weaponController : MonoBehaviour
                     weapon.SetActive(false);
                     break;
                 case 2:
-                    GameObject bullet2 = Instantiate(instance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
+                    GameObject bullet2 = Instantiate(harpoonInstance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
                     bullet2.transform.Rotate(90, 0, 0);
                     bullet2.GetComponent<Rigidbody>().AddForce(bullet2.transform.up * 420f);
                     bullet2.transform.LookAt(bullet2.GetComponent<Rigidbody>().velocity + bullet2.transform.position, Vector3.up);
@@ -67,6 +70,8 @@ public class weaponController : MonoBehaviour
                     Destroy(bullet2, 8f);
                     break;
                 case 3:
+                    GameObject grenade = Instantiate(grenadeInstance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
+                    grenade.GetComponent<Rigidbody>().AddForce(grenade.transform.forward * 200);
                     break;
                 case 4:
                     break;
@@ -81,10 +86,10 @@ public class weaponController : MonoBehaviour
         pointerOffset = pointerOffset / 25;
     }
 
-    void OnAmmo1(InputValue value) { if (readyshot) ammo = 1; }
-    void OnAmmo2(InputValue value) { if (readyshot) ammo = 2; }
-    void OnAmmo3(InputValue value) { if (readyshot) ammo = 3; }
-    void OnAmmo4(InputValue value) { if (readyshot) ammo = 4; }
+    void OnAmmo1(InputValue value) { if (readyshot && weapons.Count > 1) ammo = weapons[0]; }
+    void OnAmmo2(InputValue value) { if (readyshot && weapons.Count > 2) ammo = weapons[1]; }
+    void OnAmmo3(InputValue value) { if (readyshot && weapons.Count > 3) ammo = weapons[2]; }
+    void OnAmmo4(InputValue value) { if (readyshot && weapons.Count > 4) ammo = weapons[3]; }
 
     void FixedUpdate()
     {
