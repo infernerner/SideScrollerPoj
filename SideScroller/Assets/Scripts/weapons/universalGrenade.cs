@@ -17,6 +17,7 @@ public class universalGrenade : MonoBehaviour
     private Collider[] hits;
     private RaycastHit hitScan;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,11 +36,12 @@ public class universalGrenade : MonoBehaviour
             hits = Physics.OverlapSphere(transform.position, aoeRadius);
             foreach (Collider hit in hits)
             {
-                if (Physics.Raycast(transform.position, hit.transform.position, out hitScan))
+                if (Physics.Raycast(transform.position,  hit.transform.position - transform.position, out hitScan))
                 {
+                    Debug.DrawRay(transform.position, hit.transform.position -transform.position, Color.red);
                     if (hit.GetComponent<playerStats>())
                     {
-                        --hit.GetComponent<playerStats>().health;
+                        hit.GetComponent<playerStats>().health -= aoeDamage;
                     }
                     if (hit.GetComponent<predatorFish>())
                     {
@@ -47,6 +49,7 @@ public class universalGrenade : MonoBehaviour
                     }
                 }
             }
+            Destroy(gameObject);
         }
     }
 }

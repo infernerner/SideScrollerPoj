@@ -72,6 +72,16 @@ public class weaponController : MonoBehaviour
                 case 3:
                     GameObject grenade = Instantiate(grenadeInstance, weapon.transform.position + weapon.transform.forward * 2, weapon.transform.rotation);
                     grenade.GetComponent<Rigidbody>().AddForce(grenade.transform.forward * 200);
+                    universalGrenade grenadeScript = grenade.GetComponent<universalGrenade>();
+                    grenadeScript.scale = new(0.2f, 0.2f, 0.2f);
+                    grenadeScript.mass = 1;
+                    grenadeScript.drag = 0.2f;
+                    grenadeScript.angularDrag = 0.2f;
+                    grenadeScript.aoeDamage = 1;
+                    grenadeScript.aoeRadius = 5;
+                    grenadeScript.fuseTime = 3f;
+                    lastShot = Time.time;
+
                     break;
                 case 4:
                     break;
@@ -95,6 +105,8 @@ public class weaponController : MonoBehaviour
     {
         weapon.transform.LookAt(pointerOffset + transform.position, Vector3.up);
         if (!readyshot && ammo == 2 && lastShot + 0.2f <= Time.time)
+            readyshot = true;
+        if (!readyshot && ammo == 3 && lastShot + 0.5f <= Time.time)
             readyshot = true;
     }
 }
